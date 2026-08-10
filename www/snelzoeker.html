@@ -68,17 +68,23 @@
   .tab-panel { display:none; }
   .tab-panel.active { display:block; }
 
-  .cirkel-invul { width:min(80vw,320px); aspect-ratio:1; margin:10px auto 8px; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr;
-    border-radius:50%; overflow:hidden; box-shadow:0 8px 26px rgba(43,38,32,0.28); border:3px solid #000; }
-  .cirkel-invul .cel { box-sizing:border-box; display:flex; flex-direction:column; }
-  .cirkel-invul .cel.sterkten { background:var(--accent2); padding:30% 8% 8% 30%; border-right:3px solid #000; border-bottom:3px solid #000; }
-  .cirkel-invul .cel.valkuilen { background:var(--circle-red); padding:30% 30% 8% 8%; border-left:3px solid #000; border-bottom:3px solid #000; }
-  .cirkel-invul .cel.leerpunten { background:var(--accent2); padding:8% 30% 30% 8%; border-left:3px solid #000; border-top:3px solid #000; }
-  .cirkel-invul .cel.afkeuren { background:var(--circle-red); padding:8% 8% 30% 30%; border-right:3px solid #000; border-top:3px solid #000; }
-  .cirkel-invul .cel-label { color:#fff; font-weight:700; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.03em; text-shadow:0 1px 2px rgba(0,0,0,0.25); text-align:center; margin-bottom:4px; }
-  .cirkel-invul textarea { flex:1; width:100%; border:none; background:transparent; color:#fff; font-family:inherit; font-size:0.82rem; text-align:center; resize:none; outline:none; text-shadow:0 1px 2px rgba(0,0,0,0.2); }
-  .cirkel-invul textarea::placeholder { color:rgba(255,255,255,0.75); }
-  .cirkel-caption { text-align:center; font-size:0.78rem; color:var(--ink-soft); margin:0 0 22px; }
+  .cirkel-wrap { width:min(84vw,340px); margin:14px auto 26px; position:relative; }
+  .cirkel-wrap img { width:100%; height:auto; display:block; border-radius:16px; box-shadow:0 8px 26px rgba(43,38,32,0.22); }
+  .cirkel-overlay { position:absolute; width:27%; max-height:22%; background:rgba(255,255,255,0.92); border-radius:7px; padding:4px 6px; box-shadow:0 1px 5px rgba(0,0,0,0.18);
+    font-size:0.62rem; line-height:1.25; font-weight:600; color:var(--ink); text-align:center; overflow:hidden; pointer-events:none; }
+  .cirkel-overlay.leeg { color:var(--ink-soft); font-style:italic; font-weight:400; opacity:0.8; }
+  .cirkel-overlay.tl { top:24%; left:21%; }
+  .cirkel-overlay.tr { top:24%; right:21%; }
+  .cirkel-overlay.bl { bottom:24%; left:21%; }
+  .cirkel-overlay.br { bottom:24%; right:21%; }
+
+  .mijn-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media (max-width:520px) { .mijn-grid { grid-template-columns:1fr; } }
+  .mijn-vak { background:#fff; border:1px solid var(--rule); border-radius:10px; padding:12px 14px; border-top:5px solid var(--vk); }
+  .mijn-vak h4 { margin:0 0 8px; color:var(--vk); font-size:0.95rem; }
+  .mijn-vak textarea { width:100%; min-height:118px; border:1px solid var(--rule); border-radius:8px; padding:10px 12px; font-family:inherit; font-size:0.92rem; line-height:1.4; color:var(--ink); resize:vertical; background:var(--paper); box-sizing:border-box; }
+  .mijn-vak textarea:focus { outline:2px solid var(--vk); outline-offset:1px; }
+  .cirkel-caption { text-align:center; font-size:0.78rem; color:var(--ink-soft); margin:0 0 18px; }
   .save-indicator { position:fixed; left:50%; bottom:78px; transform:translate(-50%,10px); opacity:0; background:var(--ink); color:#fff; font-size:0.8rem; padding:7px 16px; border-radius:20px; transition:all 0.25s ease; pointer-events:none; z-index:150; }
   .save-indicator.show { opacity:0.92; transform:translate(-50%,0); }
 </style>
@@ -165,27 +171,35 @@
   <section class="tab-panel" id="panel-mijncirkel">
     <div class="card">
       <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Mijn Cirkel</h3>
-      <p style="margin:0 0 18px;color:var(--ink-soft);font-size:0.9rem;">Vul je eigen cirkel in — net als het logo, met dezelfde kleuren en indeling. Alles wordt automatisch op dit toestel onthouden.</p>
+      <p style="margin:0 0 18px;color:var(--ink-soft);font-size:0.9rem;">Net als het echte Circle-logo — met je eigen sterkten, valkuilen, leerpunten en afkeuren erbij. Alles wordt automatisch op dit toestel onthouden.</p>
 
-      <div class="cirkel-invul">
-        <div class="cel sterkten">
-          <span class="cel-label">Sterkten</span>
+      <div class="cirkel-wrap">
+        <img src="media/Circle%20Logo.png" alt="Circle Oriëntaties logo">
+        <div class="cirkel-overlay leeg tl" id="ovSterkten">Sterkten</div>
+        <div class="cirkel-overlay leeg tr" id="ovValkuilen">Valkuilen</div>
+        <div class="cirkel-overlay leeg bl" id="ovAfkeuren">Afkeuren</div>
+        <div class="cirkel-overlay leeg br" id="ovLeerpunten">Leerpunten</div>
+      </div>
+      <p class="cirkel-caption">Wat je hieronder invult, verschijnt direct in het logo hierboven.</p>
+
+      <div class="mijn-grid">
+        <div class="mijn-vak" style="--vk:var(--accent2);">
+          <h4>Mijn sterkten</h4>
           <textarea id="mcSterkten" data-key="sterkten" placeholder="Waar ben je sterk in?"></textarea>
         </div>
-        <div class="cel valkuilen">
-          <span class="cel-label">Valkuilen</span>
+        <div class="mijn-vak" style="--vk:var(--circle-red);">
+          <h4>Mijn valkuilen</h4>
           <textarea id="mcValkuilen" data-key="valkuilen" placeholder="Waar sla je weleens in door?"></textarea>
         </div>
-        <div class="cel afkeuren">
-          <span class="cel-label">Afkeuren</span>
+        <div class="mijn-vak" style="--vk:var(--circle-red);">
+          <h4>Mijn afkeuren</h4>
           <textarea id="mcAfkeuren" data-key="afkeuren" placeholder="Wat spreekt je niet aan?"></textarea>
         </div>
-        <div class="cel leerpunten">
-          <span class="cel-label">Leerpunten</span>
+        <div class="mijn-vak" style="--vk:var(--accent2);">
+          <h4>Mijn leerpunten</h4>
           <textarea id="mcLeerpunten" data-key="leerpunten" placeholder="Waar wil je in groeien?"></textarea>
         </div>
       </div>
-      <p class="cirkel-caption">Tik in een vak om te typen — je tekst wordt direct opgeslagen.</p>
     </div>
   </section>
 
@@ -234,7 +248,21 @@ document.querySelectorAll(".tab-btn").forEach(b => {
   try { opgeslagen = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { opgeslagen = {}; }
 
   const velden = document.querySelectorAll("#panel-mijncirkel textarea[data-key]");
-  velden.forEach(v => { v.value = opgeslagen[v.dataset.key] || ""; });
+  const overlayLabels = { sterkten: "Sterkten", valkuilen: "Valkuilen", afkeuren: "Afkeuren", leerpunten: "Leerpunten" };
+  const overlays = {
+    sterkten: document.getElementById("ovSterkten"),
+    valkuilen: document.getElementById("ovValkuilen"),
+    afkeuren: document.getElementById("ovAfkeuren"),
+    leerpunten: document.getElementById("ovLeerpunten"),
+  };
+  function verversOverlay(key, waarde) {
+    const el = overlays[key];
+    if (!el) return;
+    const tekst = (waarde || "").trim();
+    el.textContent = tekst || overlayLabels[key];
+    el.classList.toggle("leeg", !tekst);
+  }
+  velden.forEach(v => { v.value = opgeslagen[v.dataset.key] || ""; verversOverlay(v.dataset.key, v.value); });
 
   const indicator = document.getElementById("saveIndicator");
   let saveTimer, hideTimer;
@@ -248,6 +276,7 @@ document.querySelectorAll(".tab-btn").forEach(b => {
   }
   velden.forEach(v => {
     v.addEventListener("input", () => {
+      verversOverlay(v.dataset.key, v.value);
       clearTimeout(saveTimer);
       saveTimer = setTimeout(opslaan, 500);
     });

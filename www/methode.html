@@ -205,9 +205,11 @@
     .backtop { display: none; }
     body { background: #fff; }
   }
+  #leesvoortgang { position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: var(--accent); z-index: 300; transition: width 0.1s linear; }
 </style>
 </head>
 <body>
+<div id="leesvoortgang"></div>
 <div class="cover" id="top">
   <div class="logos">
     <img src="media/image1.jpg" alt="Circle logo" class="zoomable">
@@ -3511,6 +3513,18 @@ M1. onvoldoende betrokken en onvoldoende bekwaam </p>
     });
   });
   lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
+})();
+
+(function() {
+  const bar = document.getElementById("leesvoortgang");
+  function update() {
+    const scrollable = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    bar.style.width = pct + "%";
+  }
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 })();
 </script>
 </body>
