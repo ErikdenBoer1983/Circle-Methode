@@ -1,0 +1,9 @@
+{
+  "appId": "nl.stamconstructie.circlesnelzoeker",
+  "appName": "Circle Snelzoeker",
+  "webDir": "www",
+  "backgroundColor": "#fdfcfa",
+  "android": {
+    "backgroundColor": "#fdfcfa"
+  }
+}
