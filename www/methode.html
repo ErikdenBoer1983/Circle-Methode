@@ -20,6 +20,10 @@
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
+  html, body {
+    overflow-x: hidden;
+    max-width: 100%;
+  }
   body {
     margin: 0;
     background: var(--paper);
@@ -36,7 +40,11 @@
     text-align: center;
   }
   .cover .logos { display: flex; justify-content: center; gap: 20px; margin-bottom: 28px; }
-  .cover .logos img { max-height: 110px; width: auto; box-shadow: none; background: none; padding: 0; border: none; margin: 0; }
+  .cover .logos img { max-height: 110px; width: auto; box-shadow: none; background: none; padding: 0; border: none; margin: 0; cursor: pointer; }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(20,16,12,0.82); z-index: 500; align-items: center; justify-content: center; padding: 24px; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 85vh; border-radius: 12px; background: #fff; padding: 16px; }
+  .home-link { font-family: "Trebuchet MS","Segoe UI",sans-serif; font-size: 0.95rem; color: var(--accent); text-decoration: none; border: 1px solid var(--rule); border-radius: 20px; padding: 8px 18px; display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; background: #fff; }
   .cover h1 {
     font-family: "Trebuchet MS", "Segoe UI", sans-serif;
     font-weight: 600;
@@ -202,14 +210,16 @@
 <body>
 <div class="cover" id="top">
   <div class="logos">
-    <img src="media/image1.jpg" alt="Circle logo">
-    <img src="media/image2.jpg" alt="Circle regenboog">
+    <img src="media/image1.jpg" alt="Circle logo" class="zoomable">
+    <img src="media/image2.jpg" alt="Circle regenboog" class="zoomable">
   </div>
   <h1>De Circle Oriëntaties Methode®</h1>
   <p class="subtitle">Jubileumuitgave zomer 2026</p>
   <p class="byline">Ruud van Hussen — Circle Advies Training Begeleiding, Nieuwkuijk</p>
-  <p style="margin-top:14px;"><a href="index.html" style="font-family:'Trebuchet MS','Segoe UI',sans-serif; font-size:0.95rem; color:#a8582c; text-decoration:none; border:1px solid #d9c9b0; border-radius:20px; padding:8px 18px;">🔍 Open de Snelzoeker (thema's, sterkte/valkuil &amp; interactiepatronen)</a></p>
+  <p style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px;"><a class="home-link" href="index.html">🏠 Terug naar hoofdscherm</a><a class="home-link" href="snelzoeker.html">🔍 Snelzoeker</a></p>
 </div>
+
+<div class="lightbox" id="lightbox"><img id="lightboxImg" src="" alt=""></div>
 <div class="wrap">
 <main>
 <p><em>"Dat wat voor en achter ons ligt stelt maar weinig voor vergeleken met wat in ons ligt. En wanneer we wat in ons ligt naar buiten brengen, gebeuren er wonderen."</em></p>
@@ -3488,6 +3498,19 @@ M1. onvoldoende betrokken en onvoldoende bekwaam </p>
   });
   btnNext.addEventListener("click", next);
   btnPrev.addEventListener("click", prev);
+})();
+
+(function() {
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightboxImg");
+  document.querySelectorAll("img.zoomable").forEach(img => {
+    img.addEventListener("click", () => {
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add("open");
+    });
+  });
+  lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
 })();
 </script>
 </body>

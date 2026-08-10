@@ -3,414 +3,77 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Snelzoeker — De Circle Oriëntaties Methode®</title>
+<title>Circle Methode</title>
 <style>
   :root {
     --ink: #2b2620; --ink-soft: #55504a; --paper: #fdfcfa; --panel: #f6f1e9;
     --accent: #D9743D; --accent-soft: #F5C6A0; --accent2: #4E9670; --accent2-soft: #C8E6D3;
-    --rule: #e2d8c8; --hl: #FBE4C8;
-    --maxw: 980px;
+    --rule: #e2d8c8;
   }
   * { box-sizing: border-box; }
-  body { margin:0; background:var(--paper); color:var(--ink); font-family:"Trebuchet MS","Segoe UI",sans-serif; line-height:1.5; }
-  .wrap { max-width: var(--maxw); margin:0 auto; padding: 24px 16px 90px; }
-  header.top { background: linear-gradient(135deg, var(--accent-soft) 0%, var(--panel) 45%, var(--accent2-soft) 100%); border-bottom:1px solid var(--rule); padding: 40px 24px 32px; text-align:center; }
-  header.top .logos { display:flex; justify-content:center; gap:16px; margin-bottom:18px; }
-  header.top .logos img { max-height:80px; width:auto; background:#fff; border-radius:12px; padding:10px 14px; box-shadow:0 3px 10px rgba(0,0,0,0.12); }
-  header.top h1 { margin: 0 0 4px; font-size: 1.9rem; font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif; color: var(--ink); }
-  header.top p.subtitle { margin:0; color: var(--accent); font-weight:600; font-family:"Trebuchet MS","Segoe UI",sans-serif; }
-  header.top a.back { display:inline-block; margin-top:14px; font-size:0.85rem; color:var(--ink-soft); }
-  .card { background:#fff; border:1px solid var(--rule); border-radius:14px; padding:22px; margin-top:16px; box-shadow: 0 2px 14px rgba(43,38,32,0.05); }
-  .card + .card { margin-top:16px; }
-  .row { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; }
-  .field { display:flex; flex-direction:column; gap:4px; min-width:220px; flex:1; }
-  label { font-size:0.8rem; color:var(--ink-soft); }
-  select, input[type=text] { font-family:inherit; font-size:0.95rem; padding:8px 10px; border:1px solid var(--rule); border-radius:6px; background:#fff; color:var(--ink); }
-  .compare { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px; }
-  @media (max-width:700px) { .compare { grid-template-columns:1fr; } }
-  .compare .box { background:#fff; border:1px solid var(--rule); border-radius:8px; padding:14px; }
-  .compare .box h4 { margin:0 0 8px; font-size:0.85rem; color:var(--ink-soft); }
-  .compare .box .sterkte { color:var(--accent2); font-weight:600; margin:0 0 8px; }
-  .compare .box .valkuil { color:var(--accent); font-weight:600; margin:0; }
-  .interactie-text { margin-top:16px; background:#fff; border:1px solid var(--rule); border-radius:8px; padding:16px; font-size:0.95rem; }
-  .results { margin-top:16px; display:flex; flex-direction:column; gap:10px; }
-  .result { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 3px 10px rgba(0,0,0,0.08); }
-  .result .theme-badge { display:block; font-size:0.78rem; font-weight:700; color:#fff; padding:8px 14px; }
-  .result .label { font-weight:700; margin:12px 14px 8px; font-size:1.02rem; }
-  .result-table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 14px 14px; }
-  .result table { width:100%; min-width:640px; border-collapse:collapse; font-size:0.85rem; }
-  .result td { border:1px solid var(--rule); padding:6px 8px; vertical-align:top; width:16.66%; }
-  .result td.hdr { background:var(--panel); font-weight:700; text-align:center; width: auto; }
-  .result td.active { background: var(--hl); font-weight:600; }
-  .empty-note { color: var(--ink-soft); font-style:italic; padding: 10px 0; }
-  .count-note { color: var(--ink-soft); font-size:0.85rem; margin-top: 6px; }
-  mark { background: var(--hl); padding:0 2px; border-radius:2px; }
-  details summary { list-style-position: outside; }
-  details summary::marker { color: var(--ink-soft); }
-  details[open] summary { margin-bottom: 4px; }
-  details p { font-size: 0.92rem; }
-  .wijzer-card { border-radius:14px; overflow:hidden; cursor:pointer; background:#fff; box-shadow:0 3px 10px rgba(0,0,0,0.10); border:none; font-family:inherit; text-align:left; padding:0; display:flex; flex-direction:column; transition:transform 0.15s ease, box-shadow 0.15s ease; }
-  .wijzer-card:hover { box-shadow:0 6px 18px rgba(0,0,0,0.18); transform:translateY(-2px); }
-  .wijzer-card .band { padding:12px 14px; font-weight:700; font-size:0.98rem; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,0.15); }
-  .wijzer-card .body { padding:10px 14px 12px; }
-  .wijzer-card .uitleg { font-size:0.82rem; color:var(--ink-soft); margin:0; }
+  html, body { overflow-x: hidden; max-width: 100%; height: 100%; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(160deg, var(--accent-soft) 0%, var(--paper) 45%, var(--accent2-soft) 100%);
+    color: var(--ink);
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+  }
+  .home { max-width: 420px; width: 100%; text-align: center; }
+  .logo-wrap { background: #fff; border-radius: 22px; padding: 22px; box-shadow: 0 8px 28px rgba(43,38,32,0.14); display: inline-block; margin-bottom: 22px; cursor: pointer; border: none; }
+  .logo-wrap img { max-height: 130px; width: auto; display: block; }
+  h1 { font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif; font-size: 2rem; margin: 0 0 6px; color: var(--ink); }
+  p.by { margin: 0 0 34px; color: var(--ink-soft); font-size: 1rem; }
+  p.by strong { color: var(--accent); }
+  .choices { display: flex; flex-direction: column; gap: 16px; }
+  .choice { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 16px; padding: 18px 20px; text-decoration: none; color: var(--ink); box-shadow: 0 4px 16px rgba(43,38,32,0.08); border: 1px solid var(--rule); transition: transform 0.15s ease, box-shadow 0.15s ease; text-align: left; }
+  .choice:hover, .choice:active { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(43,38,32,0.15); }
+  .choice .icon { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #fff; }
+  .choice .txt strong { display: block; font-size: 1.05rem; margin-bottom: 2px; }
+  .choice .txt span { font-size: 0.85rem; color: var(--ink-soft); }
+  .choice .arrow { margin-left: auto; color: var(--ink-soft); font-size: 1.2rem; }
 
-  .tabbar { position:fixed; bottom:0; left:0; right:0; display:flex; background:#fff; border-top:1px solid var(--rule); box-shadow:0 -3px 14px rgba(0,0,0,0.09); z-index:100; padding-bottom:env(safe-area-inset-bottom,0); }
-  .tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; padding:9px 4px 7px; border:none; background:none; cursor:pointer; font-family:"Trebuchet MS","Segoe UI",sans-serif; }
-  .tab-icon { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; color:#fff; opacity:0.5; transition:all 0.15s ease; }
-  .tab-btn.active .tab-icon { opacity:1; transform:scale(1.1); box-shadow:0 3px 10px rgba(0,0,0,0.28); }
-  .tab-label { font-size:0.7rem; font-weight:600; color:var(--ink-soft); }
-  .tab-btn.active .tab-label { color:var(--ink); }
-  .tab-panel { display:none; }
-  .tab-panel.active { display:block; }
+  .lightbox { display: none; position: fixed; inset: 0; background: rgba(20,16,12,0.82); z-index: 200; align-items: center; justify-content: center; padding: 24px; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 100%; max-height: 85vh; border-radius: 12px; background: #fff; padding: 16px; }
 </style>
 </head>
 <body>
-<header class="top">
-  <div class="logos">
-    <img src="media/image1.jpg" alt="Circle logo">
-    <img src="media/image2.jpg" alt="Circle regenboog">
+
+<div class="home">
+  <button class="logo-wrap" id="logoBtn" aria-label="Vergroot logo">
+    <img src="media/image1.jpg" alt="Circle Oriëntaties logo">
+  </button>
+  <h1>De Circle Oriëntaties Methode<sup style="font-size:0.5em;">®</sup></h1>
+  <p class="by">Ontwikkeld door <strong>Ruud van Hussen</strong></p>
+
+  <div class="choices">
+    <a class="choice" href="methode.html">
+      <span class="icon" style="background:var(--accent2);">📖</span>
+      <span class="txt"><strong>De Methode</strong><span>Het volledige boek, van voorwoord tot bijlagen</span></span>
+      <span class="arrow">→</span>
+    </a>
+    <a class="choice" href="snelzoeker.html">
+      <span class="icon" style="background:var(--accent);">🔍</span>
+      <span class="txt"><strong>Snelzoeker</strong><span>Stijlen, interactiepatronen &amp; themakaartjes direct opzoeken</span></span>
+      <span class="arrow">→</span>
+    </a>
   </div>
-  <h1>Snelzoeker</h1>
-  <p class="subtitle">De Circle Oriëntaties Methode® — vraag &amp; stijl direct opzoeken</p>
-  <a class="back" href="document.html">&larr; Terug naar het volledige document</a>
-  <p style="margin-top:8px;font-size:0.75rem;color:var(--ink-soft);opacity:0.7;">Snelzoeker-versie 2.0 — bijgewerkt 10 augustus 2026</p>
-</header>
-<div class="wrap">
-
-  <section class="tab-panel active" id="panel-stijlen">
-    <div class="card">
-      <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Eén vergadering, zes vragen</h3>
-      <p style="margin:0 0 14px;color:var(--ink-soft);font-size:0.9rem;">Stel je voor: alle 6 oriëntaties zitten in dezelfde vergadering. De voorzitter brengt net het onderwerp <em>"de nieuwe organisatie"</em> naar voren. De situatie is voor iedereen gelijk — alleen de vragen die in ieders hoofd opkomen verschillen. Klik op een stijl voor het volledige profiel.</p>
-      <div id="vergaderingGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px;"></div>
-
-      <div class="row">
-        <div class="field">
-          <label for="stijlProfiel">Kies een stijl</label>
-          <select id="stijlProfiel"></select>
-        </div>
-      </div>
-      <div id="profielBox"></div>
-    </div>
-  </section>
-
-  <section class="tab-panel" id="panel-interactie">
-    <div class="card">
-      <div class="row">
-        <div class="field">
-          <label for="stijlA">Stijl A</label>
-          <select id="stijlA"></select>
-        </div>
-        <div class="field">
-          <label for="stijlB">Stijl B</label>
-          <select id="stijlB"></select>
-        </div>
-      </div>
-
-      <div class="compare" id="compareBox"></div>
-
-      <h4 style="margin:20px 0 4px; color:var(--ink-soft); font-size:0.85rem;">Interactiepatroon als beiden een probleem hebben</h4>
-      <div class="interactie-text" id="interactieBox"></div>
-    </div>
-  </section>
-
-  <section class="tab-panel" id="panel-themas">
-    <div class="card">
-      <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Themakaart-wijzer — welk kaartje pak ik erbij?</h3>
-      <p style="margin:0 0 14px;font-size:0.8rem;color:var(--ink-soft);font-style:italic;">(Dit "wanneer gebruik je dit"-zinnetje is door mij toegevoegd als praktische wegwijzer, niet letterlijk uit het boek.)</p>
-      <div id="wijzerGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;text-align:left;"></div>
-    </div>
-
-    <div class="card">
-      <div class="row">
-        <div class="field" style="flex:2;">
-          <label for="themaFilter">Kies een themakaart</label>
-          <select id="themaFilter">
-            <option value="">— kies een thema —</option>
-          </select>
-        </div>
-        <div class="field">
-          <label for="stijlFilter">Stijl markeren</label>
-          <select id="stijlFilter">
-            <option value="">— geen —</option>
-          </select>
-        </div>
-      </div>
-      <div id="waaromBox"></div>
-      <div class="count-note" id="countNote"></div>
-      <div class="results" id="results"></div>
-    </div>
-  </section>
-
 </div>
 
-<nav class="tabbar">
-  <button class="tab-btn active" data-tab="stijlen">
-    <span class="tab-icon" style="background:var(--accent);">🧭</span>
-    <span class="tab-label">Stijlen</span>
-  </button>
-  <button class="tab-btn" data-tab="interactie">
-    <span class="tab-icon" style="background:var(--accent2);">🤝</span>
-    <span class="tab-label">Interactie</span>
-  </button>
-  <button class="tab-btn" data-tab="themas">
-    <span class="tab-icon" style="background:#B98A3D;">🃏</span>
-    <span class="tab-label">Thema's</span>
-  </button>
-</nav>
+<div class="lightbox" id="lightbox">
+  <img src="media/image1.jpg" alt="Circle Oriëntaties logo, vergroot">
+</div>
 
-<script src="themesData.js"></script>
-<script src="moredata.js"></script>
-<script src="stylesData.js"></script>
 <script>
-const codes = ["c1","c2","c3","c4","c5","c6"];
-
-function showTab(name) {
-  document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
-  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
-  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
-}
-document.querySelectorAll(".tab-btn").forEach(b => {
-  b.addEventListener("click", () => showTab(b.dataset.tab));
-});
-
-function fillSelect(sel, includeEmpty) {
-  if (includeEmpty) {
-    const o = document.createElement("option"); o.value=""; o.textContent="— geen —"; sel.appendChild(o);
-  }
-  codes.forEach(c => {
-    const o = document.createElement("option");
-    o.value = c; o.textContent = oriNames[c];
-    sel.appendChild(o);
-  });
-}
-const stijlA = document.getElementById("stijlA");
-const stijlB = document.getElementById("stijlB");
-fillSelect(stijlA); fillSelect(stijlB);
-stijlA.value = "c1"; stijlB.value = "c2";
-
-// --- Sectie 1: De zes stijlen ---
-const stijlProfiel = document.getElementById("stijlProfiel");
-fillSelect(stijlProfiel);
-stijlProfiel.value = "c1";
-
-function paras(arr) {
-  if (!arr) return "";
-  return arr.map(p => `<p style="margin:0 0 10px;">${p}</p>`).join("");
-}
-function chipList(arr) {
-  if (!arr) return "";
-  return arr.map(p => `<li>${p}</li>`).join("");
-}
-
-function renderProfiel() {
-  const me = stijlProfiel.value;
-  const p = styleProfiles[me];
-  const box = document.getElementById("profielBox");
-  const kleur = styleColors[me] || "var(--accent)";
-
-  const anderenHtml = codes.filter(c => c !== me).map(other => `
-    <div style="background:#fff;border:1px solid var(--rule);border-left:4px solid ${styleColors[other]};border-radius:8px;padding:12px 14px;">
-      <h4 style="margin:0 0 8px;font-size:0.85rem;color:var(--ink-soft);">Vanuit ${oriNames[other]} gezien</h4>
-      <p class="sterkte" style="margin:0 0 6px;">Als sterkte: "${sterkteData[me][other]}"</p>
-      <p class="valkuil" style="margin:0;">Als het doorslaat: "${valkuilData[me][other]}"</p>
-    </div>`).join("");
-
-  box.innerHTML = `
-    <div style="margin-top:16px;border-top:5px solid ${kleur};padding-top:16px;">
-      <h3 style="margin:0 0 2px;font-size:1.3rem;color:${kleur};">${p.naam}</h3>
-      <p style="margin:0 0 14px;color:var(--ink-soft);font-style:italic;">${p.ondertitel} — non-verbaal: ${p.nonverbaal}</p>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
-        <div style="background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;">
-          <p style="margin:0 0 6px;"><strong>Sleutelwoord:</strong> ${p.sleutelwoord}</p>
-          <p style="margin:0 0 6px;"><strong>Motivatie:</strong> ${p.motivatie}</p>
-          <p style="margin:0;"><strong>Houding:</strong> ${p.houding}</p>
-        </div>
-        <div style="background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;">
-          <p style="margin:0 0 6px;"><strong>Basisbenadering:</strong> ${p.basisbenadering}</p>
-          <p style="margin:0 0 4px;"><strong>Typerende vraagstellingen:</strong></p>
-          <ul style="margin:0;padding-left:1.2em;">${chipList(p.vragen)}</ul>
-        </div>
-      </div>
-
-      <h4 style="margin:0 0 8px;color:var(--ink-soft);">Hoe de andere 5 stijlen ${p.naam} ervaren</h4>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;">${anderenHtml}</div>
-
-      <div style="background:var(--hl);border:1px solid var(--rule);border-radius:8px;padding:12px 14px;margin-bottom:20px;">
-        <h4 style="margin:0 0 8px;">Excessief gedrag — beste benaderingswijze door de ander</h4>
-        <ul style="margin:0;padding-left:1.2em;">${chipList(p.excessiefBenadering)}</ul>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
-        <details style="background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;">
-          <summary style="cursor:pointer;font-weight:700;color:var(--accent2);">${me.toUpperCase()} Sterkten <span style="font-weight:400;color:var(--ink-soft);">— ${p.sterkteKort}</span></summary>
-          <div style="margin-top:10px;">${paras(p.sterkteVol)}</div>
-        </details>
-        <details style="background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;">
-          <summary style="cursor:pointer;font-weight:700;color:var(--accent);">${me.toUpperCase()} Valkuilen <span style="font-weight:400;color:var(--ink-soft);">— ${p.valkuilKort}</span></summary>
-          <div style="margin-top:10px;">${paras(p.valkuilVol)}</div>
-        </details>
-      </div>
-
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-        <details style="background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;">
-          <summary style="cursor:pointer;font-weight:700;">${me.toUpperCase()} Leerpunten <span style="font-weight:400;color:var(--ink-soft);">— ${p.leerpuntKort}</span></summary>
-          <div style="margin-top:10px;">${paras(p.leerpuntVol)}</div>
-        </details>
-        <details style="background:#fff;border:1px solid var(--rule);border-radius:8px;padding:12px 14px;">
-          <summary style="cursor:pointer;font-weight:700;">${me.toUpperCase()} Afkeuren <span style="font-weight:400;color:var(--ink-soft);">— ${p.afkeurKort}</span></summary>
-          <div style="margin-top:10px;">${paras(p.afkeurVol)}</div>
-        </details>
-      </div>
-    </div>`;
-}
-stijlProfiel.addEventListener("change", renderProfiel);
-renderProfiel();
-
-function goToStijl(code) {
-  stijlProfiel.value = code;
-  renderProfiel();
-  document.getElementById("profielBox").scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-const vergaderingGrid = document.getElementById("vergaderingGrid");
-codes.forEach(c => {
-  const card = document.createElement("button");
-  card.style.cssText = "border:1px solid var(--rule); border-top-width:5px; border-top-style:solid; border-top-color:" + styleColors[c] + "; border-radius:8px; padding:10px 12px; background:#fff; text-align:left; cursor:pointer; font-family:inherit;";
-  const vragen = vergaderingVragen[c] || [];
-  card.innerHTML = `<p style="margin:0 0 6px;font-weight:700;font-size:0.85rem;">${oriNames[c]}</p>
-    <p style="margin:0 0 4px;font-size:0.8rem;font-style:italic;color:var(--ink-soft);">"${vragen[0] || ""}"</p>
-    <p style="margin:0;font-size:0.8rem;font-style:italic;color:var(--ink-soft);">"${vragen[1] || ""}"</p>`;
-  card.addEventListener("click", () => goToStijl(c));
-  vergaderingGrid.appendChild(card);
-});
-
-function renderCompare() {
-  const a = stijlA.value, b = stijlB.value;
-  const box = document.getElementById("compareBox");
-  box.innerHTML = "";
-  const mk = (mine, other) => {
-    const div = document.createElement("div"); div.className = "box";
-    div.style.borderTop = "4px solid " + styleColors[mine];
-    div.innerHTML = `<h4>Hoe ${oriNames[other]} ${oriNames[mine]} ervaart</h4>
-      <p class="sterkte">Als sterkte: "${sterkteData[mine][other]}"</p>
-      <p class="valkuil">Als het doorslaat: "${valkuilData[mine][other]}"</p>`;
-    return div;
-  };
-  box.appendChild(mk(a, b));
-  box.appendChild(mk(b, a));
-
-  const key1 = a + "-" + b, key2 = b + "-" + a;
-  const iBox = document.getElementById("interactieBox");
-  let html = `<p><strong>${oriNames[a]} &harr; ${oriNames[b]}:</strong> ${interactieData[key1] || "(niet beschikbaar)"}</p>`;
-  if (key1 !== key2) {
-    html += `<p style="margin-top:10px;"><strong>${oriNames[b]} &harr; ${oriNames[a]}:</strong> ${interactieData[key2] || "(niet beschikbaar)"}</p>`;
-  }
-  iBox.innerHTML = html;
-}
-stijlA.addEventListener("change", renderCompare);
-stijlB.addEventListener("change", renderCompare);
-renderCompare();
-
-const stijlFilter = document.getElementById("stijlFilter");
-fillSelect(stijlFilter, true);
-const themaFilter = document.getElementById("themaFilter");
-themeOrder.filter(n => themesData[n]).forEach(name => {
-  const o = document.createElement("option"); o.value = name; o.textContent = name;
-  themaFilter.appendChild(o);
-});
-
-function escapeHtml(s) {
-  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-}
-function highlight(text, q) {
-  if (!q) return escapeHtml(text);
-  const idx = text.toLowerCase().indexOf(q.toLowerCase());
-  if (idx === -1) return escapeHtml(text);
-  return escapeHtml(text.slice(0,idx)) + "<mark>" + escapeHtml(text.slice(idx, idx+q.length)) + "</mark>" + escapeHtml(text.slice(idx+q.length));
-}
-
-function renderResults() {
-  const stijl = stijlFilter.value;
-  const themaOnly = themaFilter.value;
-  const resultsEl = document.getElementById("results");
-  resultsEl.innerHTML = "";
-  let count = 0;
-
-  if (!themaOnly) {
-    document.getElementById("countNote").textContent = "";
-    resultsEl.innerHTML = '<div class="empty-note">Kies hierboven een themakaart, of gebruik de wijzer bovenaan de pagina.</div>';
-    return;
-  }
-
-  const rows = themesData[themaOnly] || [];
-  const col = themeColors[themaOnly] || { bg: "#a8582c", fg: "#ffffff" };
-  rows.forEach(row => {
-    count++;
-    const div = document.createElement("div"); div.className = "result";
-    let tableHtml = "<table><tr>";
-    codes.forEach(c => { tableHtml += `<td class="hdr">${oriNames[c].replace(/^C\d /,'')}</td>`; });
-    tableHtml += "</tr><tr>";
-    codes.forEach(c => {
-      const cls = (stijl === c) ? "active" : "";
-      tableHtml += `<td class="${cls}">${escapeHtml(row[c] || "")}</td>`;
-    });
-    tableHtml += "</tr></table>";
-    div.innerHTML = `<span class="theme-badge" style="background:${col.bg};color:${col.fg};">${escapeHtml(themaOnly)}</span>
-      <div class="label">${escapeHtml(row.label)}</div>
-      <div class="result-table-scroll">${tableHtml}</div>`;
-    resultsEl.appendChild(div);
-  });
-
-  document.getElementById("countNote").textContent = count + " " + (count===1?"rij":"rijen") + " in dit kaartje";
-}
-stijlFilter.addEventListener("change", renderResults);
-themaFilter.addEventListener("change", renderResults);
-renderResults();
-
-// --- Themakaart-wijzer ---
-const wanneerGebruikUitgebreid = {
-  "Basis (algemeen)": "Gebruik dit als je nog niet vertrouwd bent met de 6 stijlen, of snel wilt opfrissen hoe elke stijl zich in de praktijk gedraagt. Het is bedoeld als eerste kennismaking, vóórdat je met een specifiek thema aan de slag gaat.",
-  "Basis (kernwoorden per oriëntatie)": "Gebruik dit als geheugensteun tijdens een gesprek: in één oogopslag het kernwoord, de intentie en de vraag die elke stijl zichzelf stelt. Handig om er tussendoor even bij te pakken.",
-  "Hoe leren we?": "Gebruik dit als je een training, instructie of overdracht voorbereidt. Iedere stijl leert anders — dit kaartje laat zien wat elke stijl motiveert om te leren en wat juist een blokkade oplevert, zodat je je aanpak kunt afstemmen.",
-  "Efficiënter omgaan met tijd": "Gebruik dit als iemand (of jijzelf) worstelt met prioriteiten, deadlines of moeite heeft om \"nee\" te zeggen. Het laat zien wat voor elke stijl productief en contraproductief tijdgebruik is.",
-  "Beter omgaan met Verandering": "Gebruik dit bij een reorganisatie, nieuwe werkwijze of ander veranderproces. Het laat zien wie er van nature in meegaat, wie er remt, en waarom — zodat je weerstand beter kunt begrijpen in plaats van bestrijden.",
-  "Communicatie en Gespreksvoering": "Gebruik dit ter voorbereiding op een belangrijk of lastig gesprek. Het loopt fase voor fase (opening, argumentatie, afsluiting) langs wat bij elke stijl werkt en wat averechts werkt.",
-  "Feedback geven": "Gebruik dit vlak vóórdat je iemand feedback gaat geven. Het laat per stijl zien hoe je het beste brengt, en wat je juist moet vermijden om niet averechts te werken.",
-  "Onderhandelen": "Gebruik dit ter voorbereiding op een onderhandeling. Het laat zien hoe elke stijl zich opstelt, of iemand meer op de relatie of op de deal zit, en waar de weerstand zit.",
-  "Samenwerken": "Gebruik dit als een samenwerking stroef loopt. Het laat zien wat elke stijl van nature bijdraagt aan een team, wat er misgaat als het doorslaat, en wanneer iemand dreigt af te haken.",
-  "Leidinggeven en coachen": "Gebruik dit als je moet schakelen tussen de rollen leider, manager, coach of baas. Het laat per stijl zien hoe je die rol invult, én waar je zelf op moet letten."
-};
-
-function renderWaarom() {
-  const name = themaFilter.value;
-  const box = document.getElementById("waaromBox");
-  if (!name) { box.innerHTML = ""; return; }
-  const col = themeColors[name] || { bg: "#a8582c", fg: "#fff" };
-  const tekst = wanneerGebruikUitgebreid[name] || "";
-  box.innerHTML = `<div style="background:#fff;border:1px solid var(--rule);border-left:6px solid ${col.bg};border-radius:8px;padding:12px 16px;margin:16px 0;">
-    <p style="margin:0 0 4px;font-weight:700;">Wanneer pak je dit kaartje erbij?</p>
-    <p style="margin:0;color:var(--ink-soft);">${escapeHtml(tekst)}</p>
-  </div>`;
-}
-themaFilter.addEventListener("change", renderWaarom);
-
-const wijzerGrid = document.getElementById("wijzerGrid");
-themeOrder.filter(n => themesData[n]).forEach(name => {
-  const col = themeColors[name] || { bg: "#a8582c", fg: "#ffffff" };
-  const btn = document.createElement("button");
-  btn.className = "wijzer-card";
-  btn.innerHTML = `<span class="band" style="background:${col.bg};color:${col.fg};">${escapeHtml(name)}</span>
-    <span class="body"><p class="uitleg">${escapeHtml(wanneerGebruikUitgebreid[name] || "")}</p></span>`;
-  btn.addEventListener("click", () => {
-    themaFilter.value = name;
-    renderWaarom();
-    renderResults();
-    document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-  wijzerGrid.appendChild(btn);
-});
+  const logoBtn = document.getElementById("logoBtn");
+  const lightbox = document.getElementById("lightbox");
+  logoBtn.addEventListener("click", () => lightbox.classList.add("open"));
+  lightbox.addEventListener("click", () => lightbox.classList.remove("open"));
 </script>
 </body>
 </html>
