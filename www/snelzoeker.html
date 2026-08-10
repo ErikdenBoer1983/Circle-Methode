@@ -68,15 +68,15 @@
   .tab-panel { display:none; }
   .tab-panel.active { display:block; }
 
-  .cirkel-wrap { width:min(84vw,340px); margin:14px auto 26px; position:relative; }
+  .cirkel-wrap { width:min(96vw,600px); margin:14px auto 26px; position:relative; }
   .cirkel-wrap img { width:100%; height:auto; display:block; border-radius:16px; box-shadow:0 8px 26px rgba(43,38,32,0.22); }
-  .cirkel-overlay { position:absolute; width:27%; max-height:22%; background:rgba(255,255,255,0.92); border-radius:7px; padding:4px 6px; box-shadow:0 1px 5px rgba(0,0,0,0.18);
-    font-size:0.62rem; line-height:1.25; font-weight:600; color:var(--ink); text-align:center; overflow:hidden; pointer-events:none; white-space:pre-line; }
-  .cirkel-overlay.leeg { color:var(--ink-soft); font-style:italic; font-weight:400; opacity:0.8; }
-  .cirkel-overlay.tl { top:24%; left:21%; }
-  .cirkel-overlay.tr { top:24%; right:21%; }
-  .cirkel-overlay.bl { bottom:24%; left:21%; }
-  .cirkel-overlay.br { bottom:24%; right:21%; }
+  .cirkel-overlay { position:absolute; background:rgba(255,255,255,0.4); border-radius:6px; padding:5px 8px;
+    font-size:0.62rem; line-height:1.25; font-weight:700; color:#000; overflow:hidden; pointer-events:none; white-space:pre-line; box-sizing:border-box; }
+  .cirkel-overlay.leeg { color:rgba(0,0,0,0.55); font-style:italic; font-weight:400; }
+  .cirkel-overlay.tl { top:16.5%; left:19%; right:51%; bottom:53.5%; text-align:right; }
+  .cirkel-overlay.tr { top:16.5%; left:51%; right:19%; bottom:53.5%; text-align:left; }
+  .cirkel-overlay.bl { top:48.5%; left:19%; right:51%; bottom:21.5%; text-align:right; }
+  .cirkel-overlay.br { top:48.5%; left:51%; right:19%; bottom:21.5%; text-align:left; }
 
   .mijn-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   @media (max-width:520px) { .mijn-grid { grid-template-columns:1fr; } }
@@ -171,7 +171,7 @@
   <section class="tab-panel" id="panel-mijncirkel">
     <div class="card">
       <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Mijn Cirkel</h3>
-      <p style="margin:0 0 18px;color:var(--ink-soft);font-size:0.9rem;">Net als het echte Circle-logo — met je eigen sterkten, valkuilen, leerpunten en afkeuren erbij. Alles wordt automatisch op dit toestel onthouden.</p>
+      <p style="margin:0 0 18px;color:var(--ink-soft);font-size:0.9rem;">Vul je cirkel in! — en bestuur jouw eigen sterkten, valkuilen, leerpunten en afkeuren. Alles wordt automatisch op dit toestel onthouden.</p>
 
       <div class="cirkel-wrap">
         <img src="media/Circle%20Logo.png" alt="Circle Oriëntaties logo">
