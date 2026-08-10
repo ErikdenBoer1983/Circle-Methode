@@ -13,15 +13,15 @@
   }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--paper); color:var(--ink); font-family:"Trebuchet MS","Segoe UI",sans-serif; line-height:1.5; }
-  .wrap { max-width: var(--maxw); margin:0 auto; padding: 32px 24px 100px; }
+  .wrap { max-width: var(--maxw); margin:0 auto; padding: 24px 16px 90px; }
   header.top { background: linear-gradient(135deg, var(--accent-soft) 0%, var(--panel) 45%, var(--accent2-soft) 100%); border-bottom:1px solid var(--rule); padding: 40px 24px 32px; text-align:center; }
   header.top .logos { display:flex; justify-content:center; gap:16px; margin-bottom:18px; }
   header.top .logos img { max-height:80px; width:auto; background:#fff; border-radius:12px; padding:10px 14px; box-shadow:0 3px 10px rgba(0,0,0,0.12); }
   header.top h1 { margin: 0 0 4px; font-size: 1.9rem; font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif; color: var(--ink); }
   header.top p.subtitle { margin:0; color: var(--accent); font-weight:600; font-family:"Trebuchet MS","Segoe UI",sans-serif; }
   header.top a.back { display:inline-block; margin-top:14px; font-size:0.85rem; color:var(--ink-soft); }
-  h2.section-title { font-size:1.35rem; font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif; color:var(--accent); border-bottom:2px solid var(--accent-soft); padding-bottom:8px; margin-top:48px; }
   .card { background:#fff; border:1px solid var(--rule); border-radius:14px; padding:22px; margin-top:16px; box-shadow: 0 2px 14px rgba(43,38,32,0.05); }
+  .card + .card { margin-top:16px; }
   .row { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; }
   .field { display:flex; flex-direction:column; gap:4px; min-width:220px; flex:1; }
   label { font-size:0.8rem; color:var(--ink-soft); }
@@ -34,10 +34,11 @@
   .compare .box .valkuil { color:var(--accent); font-weight:600; margin:0; }
   .interactie-text { margin-top:16px; background:#fff; border:1px solid var(--rule); border-radius:8px; padding:16px; font-size:0.95rem; }
   .results { margin-top:16px; display:flex; flex-direction:column; gap:10px; }
-  .result { background:#fff; border:1px solid var(--rule); border-left-width:6px; border-left-style:solid; border-radius:8px; padding:12px 14px; }
-  .result .theme-badge { display:inline-block; font-size:0.72rem; color:#fff; background:var(--accent); border-radius:12px; padding:2px 10px; margin-bottom:6px; }
-  .result .label { font-weight:700; margin: 0 0 8px; }
-  .result table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+  .result { background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 3px 10px rgba(0,0,0,0.08); }
+  .result .theme-badge { display:block; font-size:0.78rem; font-weight:700; color:#fff; padding:8px 14px; }
+  .result .label { font-weight:700; margin:12px 14px 8px; font-size:1.02rem; }
+  .result-table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; padding:0 14px 14px; }
+  .result table { width:100%; min-width:640px; border-collapse:collapse; font-size:0.85rem; }
   .result td { border:1px solid var(--rule); padding:6px 8px; vertical-align:top; width:16.66%; }
   .result td.hdr { background:var(--panel); font-weight:700; text-align:center; width: auto; }
   .result td.active { background: var(--hl); font-weight:600; }
@@ -48,15 +49,20 @@
   details summary::marker { color: var(--ink-soft); }
   details[open] summary { margin-bottom: 4px; }
   details p { font-size: 0.92rem; }
-  .nav-btn { display:flex; flex-direction:column; align-items:center; gap:10px; text-decoration:none; width:150px; }
-  .nav-btn .circle { width:104px; height:104px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:2rem; box-shadow:0 4px 10px rgba(0,0,0,0.18); border:4px solid var(--paper); outline:1px solid var(--rule); transition:transform 0.15s ease; }
-  .nav-btn:hover .circle { transform:translateY(-3px) scale(1.03); }
-  .nav-btn .caption { font-family:"Trebuchet MS","Segoe UI",sans-serif; font-weight:700; font-size:0.85rem; color:var(--ink); text-align:center; line-height:1.25; }
-  .wijzer-card { border:1px solid var(--rule); border-radius:10px; padding:10px 12px 10px 14px; cursor:pointer; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,0.08); font-family:inherit; text-align:left; display:flex; gap:10px; align-items:flex-start; }
-  .wijzer-card:hover { box-shadow:0 3px 10px rgba(0,0,0,0.15); transform:translateY(-1px); }
-  .wijzer-card .dot { flex:0 0 auto; width:14px; height:14px; border-radius:50%; margin-top:3px; box-shadow:0 0 0 2px #fff, 0 0 0 3px var(--rule); }
-  .wijzer-card .naam { font-weight:700; margin:0 0 4px; }
+  .wijzer-card { border-radius:14px; overflow:hidden; cursor:pointer; background:#fff; box-shadow:0 3px 10px rgba(0,0,0,0.10); border:none; font-family:inherit; text-align:left; padding:0; display:flex; flex-direction:column; transition:transform 0.15s ease, box-shadow 0.15s ease; }
+  .wijzer-card:hover { box-shadow:0 6px 18px rgba(0,0,0,0.18); transform:translateY(-2px); }
+  .wijzer-card .band { padding:12px 14px; font-weight:700; font-size:0.98rem; color:#fff; text-shadow:0 1px 2px rgba(0,0,0,0.15); }
+  .wijzer-card .body { padding:10px 14px 12px; }
   .wijzer-card .uitleg { font-size:0.82rem; color:var(--ink-soft); margin:0; }
+
+  .tabbar { position:fixed; bottom:0; left:0; right:0; display:flex; background:#fff; border-top:1px solid var(--rule); box-shadow:0 -3px 14px rgba(0,0,0,0.09); z-index:100; padding-bottom:env(safe-area-inset-bottom,0); }
+  .tab-btn { flex:1; display:flex; flex-direction:column; align-items:center; gap:4px; padding:9px 4px 7px; border:none; background:none; cursor:pointer; font-family:"Trebuchet MS","Segoe UI",sans-serif; }
+  .tab-icon { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.15rem; color:#fff; opacity:0.5; transition:all 0.15s ease; }
+  .tab-btn.active .tab-icon { opacity:1; transform:scale(1.1); box-shadow:0 3px 10px rgba(0,0,0,0.28); }
+  .tab-label { font-size:0.7rem; font-weight:600; color:var(--ink-soft); }
+  .tab-btn.active .tab-label { color:var(--ink); }
+  .tab-panel { display:none; }
+  .tab-panel.active { display:block; }
 </style>
 </head>
 <body>
@@ -72,91 +78,101 @@
 </header>
 <div class="wrap">
 
-  <div class="card" id="overzicht" style="text-align:center;">
-    <h2 style="margin:0 0 4px;font-size:1.5rem;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Waar wil je naartoe?</h2>
-    <p style="margin:0 0 16px;color:var(--ink-soft);">Kies een ingang, of scroll voor het volledige overzicht.</p>
-    <div class="row" style="justify-content:center;gap:20px;">
-      <a href="#sec-stijlen" class="nav-btn">
-        <span class="circle" style="background:var(--accent);">🧭</span>
-        <span class="caption">1. De zes<br>stijlen</span>
-      </a>
-      <a href="#sec-interactie" class="nav-btn">
-        <span class="circle" style="background:var(--accent2);">🤝</span>
-        <span class="caption">2. Interactie<br>tussen stijlen</span>
-      </a>
-      <a href="#sec-themas" class="nav-btn">
-        <span class="circle" style="background:#B98A3D;">🃏</span>
-        <span class="caption">3. Thema-<br>kaartjes</span>
-      </a>
+  <section class="tab-panel active" id="panel-stijlen">
+    <div class="card">
+      <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Eén vergadering, zes vragen</h3>
+      <p style="margin:0 0 14px;color:var(--ink-soft);font-size:0.9rem;">Stel je voor: alle 6 oriëntaties zitten in dezelfde vergadering. De voorzitter brengt net het onderwerp <em>"de nieuwe organisatie"</em> naar voren. De situatie is voor iedereen gelijk — alleen de vragen die in ieders hoofd opkomen verschillen. Klik op een stijl voor het volledige profiel.</p>
+      <div id="vergaderingGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px;"></div>
+
+      <div class="row">
+        <div class="field">
+          <label for="stijlProfiel">Kies een stijl</label>
+          <select id="stijlProfiel"></select>
+        </div>
+      </div>
+      <div id="profielBox"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="panel-interactie">
+    <div class="card">
+      <div class="row">
+        <div class="field">
+          <label for="stijlA">Stijl A</label>
+          <select id="stijlA"></select>
+        </div>
+        <div class="field">
+          <label for="stijlB">Stijl B</label>
+          <select id="stijlB"></select>
+        </div>
+      </div>
+
+      <div class="compare" id="compareBox"></div>
+
+      <h4 style="margin:20px 0 4px; color:var(--ink-soft); font-size:0.85rem;">Interactiepatroon als beiden een probleem hebben</h4>
+      <div class="interactie-text" id="interactieBox"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="panel-themas">
+    <div class="card">
+      <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Themakaart-wijzer — welk kaartje pak ik erbij?</h3>
+      <p style="margin:0 0 14px;font-size:0.8rem;color:var(--ink-soft);font-style:italic;">(Dit "wanneer gebruik je dit"-zinnetje is door mij toegevoegd als praktische wegwijzer, niet letterlijk uit het boek.)</p>
+      <div id="wijzerGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;text-align:left;"></div>
     </div>
 
-    <h3 style="margin:26px 0 4px;font-size:1rem;color:var(--ink-soft);">Themakaart-wijzer — welk kaartje pak ik erbij?</h3>
-    <p style="margin:0 0 14px;font-size:0.8rem;color:var(--ink-soft);font-style:italic;">(Dit "wanneer gebruik je dit"-zinnetje is door mij toegevoegd als praktische wegwijzer, niet letterlijk uit het boek.)</p>
-    <div id="wijzerGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;text-align:left;"></div>
-  </div>
-
-  <h2 class="section-title" id="sec-stijlen">1. De zes stijlen</h2>
-  <div class="card">
-    <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Eén vergadering, zes vragen</h3>
-    <p style="margin:0 0 14px;color:var(--ink-soft);font-size:0.9rem;">Stel je voor: alle 6 oriëntaties zitten in dezelfde vergadering. De voorzitter brengt net het onderwerp <em>"de nieuwe organisatie"</em> naar voren. De situatie is voor iedereen gelijk — alleen de vragen die in ieders hoofd opkomen verschillen. Klik op een stijl voor het volledige profiel.</p>
-    <div id="vergaderingGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:20px;"></div>
-
-    <div class="row">
-      <div class="field">
-        <label for="stijlProfiel">Kies een stijl</label>
-        <select id="stijlProfiel"></select>
+    <div class="card">
+      <div class="row">
+        <div class="field" style="flex:2;">
+          <label for="themaFilter">Kies een themakaart</label>
+          <select id="themaFilter">
+            <option value="">— kies een thema —</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="stijlFilter">Stijl markeren</label>
+          <select id="stijlFilter">
+            <option value="">— geen —</option>
+          </select>
+        </div>
       </div>
+      <div id="waaromBox"></div>
+      <div class="count-note" id="countNote"></div>
+      <div class="results" id="results"></div>
     </div>
-    <div id="profielBox"></div>
-  </div>
-
-  <h2 class="section-title" id="sec-interactie">2. Interactie tussen twee stijlen</h2>
-  <div class="card">
-    <div class="row">
-      <div class="field">
-        <label for="stijlA">Stijl A</label>
-        <select id="stijlA"></select>
-      </div>
-      <div class="field">
-        <label for="stijlB">Stijl B</label>
-        <select id="stijlB"></select>
-      </div>
-    </div>
-
-    <div class="compare" id="compareBox"></div>
-
-    <h4 style="margin:20px 0 4px; color:var(--ink-soft); font-size:0.85rem;">Interactiepatroon als beiden een probleem hebben</h4>
-    <div class="interactie-text" id="interactieBox"></div>
-  </div>
-
-  <h2 class="section-title" id="sec-themas">3. Themakaartjes</h2>
-  <div class="card">
-    <div class="row">
-      <div class="field" style="flex:2;">
-        <label for="themaFilter">Kies een themakaart</label>
-        <select id="themaFilter">
-          <option value="">— kies een thema —</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="stijlFilter">Stijl markeren</label>
-        <select id="stijlFilter">
-          <option value="">— geen —</option>
-        </select>
-      </div>
-    </div>
-    <div id="waaromBox"></div>
-    <div class="count-note" id="countNote"></div>
-    <div class="results" id="results"></div>
-  </div>
+  </section>
 
 </div>
+
+<nav class="tabbar">
+  <button class="tab-btn active" data-tab="stijlen">
+    <span class="tab-icon" style="background:var(--accent);">🧭</span>
+    <span class="tab-label">Stijlen</span>
+  </button>
+  <button class="tab-btn" data-tab="interactie">
+    <span class="tab-icon" style="background:var(--accent2);">🤝</span>
+    <span class="tab-label">Interactie</span>
+  </button>
+  <button class="tab-btn" data-tab="themas">
+    <span class="tab-icon" style="background:#B98A3D;">🃏</span>
+    <span class="tab-label">Thema's</span>
+  </button>
+</nav>
 
 <script src="themesData.js"></script>
 <script src="moredata.js"></script>
 <script src="stylesData.js"></script>
 <script>
 const codes = ["c1","c2","c3","c4","c5","c6"];
+
+function showTab(name) {
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
+  document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+}
+document.querySelectorAll(".tab-btn").forEach(b => {
+  b.addEventListener("click", () => showTab(b.dataset.tab));
+});
 
 function fillSelect(sel, includeEmpty) {
   if (includeEmpty) {
@@ -333,7 +349,6 @@ function renderResults() {
   rows.forEach(row => {
     count++;
     const div = document.createElement("div"); div.className = "result";
-    div.style.borderLeftColor = col.bg;
     let tableHtml = "<table><tr>";
     codes.forEach(c => { tableHtml += `<td class="hdr">${oriNames[c].replace(/^C\d /,'')}</td>`; });
     tableHtml += "</tr><tr>";
@@ -343,7 +358,8 @@ function renderResults() {
     });
     tableHtml += "</tr></table>";
     div.innerHTML = `<span class="theme-badge" style="background:${col.bg};color:${col.fg};">${escapeHtml(themaOnly)}</span>
-      <div class="label">${escapeHtml(row.label)}</div>${tableHtml}`;
+      <div class="label">${escapeHtml(row.label)}</div>
+      <div class="result-table-scroll">${tableHtml}</div>`;
     resultsEl.appendChild(div);
   });
 
@@ -382,15 +398,16 @@ themaFilter.addEventListener("change", renderWaarom);
 
 const wijzerGrid = document.getElementById("wijzerGrid");
 themeOrder.filter(n => themesData[n]).forEach(name => {
-  const col = themeColors[name] || { bg: "#a8582c" };
+  const col = themeColors[name] || { bg: "#a8582c", fg: "#ffffff" };
   const btn = document.createElement("button");
   btn.className = "wijzer-card";
-  btn.innerHTML = `<span class="dot" style="background:${col.bg};"></span><span><p class="naam">${escapeHtml(name)}</p><p class="uitleg">${escapeHtml(wanneerGebruikUitgebreid[name] || "")}</p></span>`;
+  btn.innerHTML = `<span class="band" style="background:${col.bg};color:${col.fg};">${escapeHtml(name)}</span>
+    <span class="body"><p class="uitleg">${escapeHtml(wanneerGebruikUitgebreid[name] || "")}</p></span>`;
   btn.addEventListener("click", () => {
     themaFilter.value = name;
     renderWaarom();
     renderResults();
-    document.getElementById("sec-themas").scrollIntoView({ behavior: "smooth" });
+    document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
   });
   wijzerGrid.appendChild(btn);
 });
