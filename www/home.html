@@ -32,7 +32,9 @@
   .choices { display: flex; flex-direction: column; gap: 16px; }
   .choice { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 16px; padding: 18px 20px; text-decoration: none; color: var(--ink); box-shadow: 0 4px 16px rgba(43,38,32,0.08); border: 1px solid var(--rule); transition: transform 0.15s ease, box-shadow 0.15s ease; text-align: left; }
   .choice:hover, .choice:active { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(43,38,32,0.15); }
-  .choice .icon { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #fff; }
+  .choice .icon { flex: 0 0 auto; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; color: #fff; position: relative; overflow: hidden; background: #fff; box-shadow: inset 0 0 0 1px var(--rule); }
+  .choice .icon img { width: 100%; height: 100%; object-fit: cover; }
+  .choice .icon .badge { position: absolute; bottom: -3px; right: -3px; background: #fff; border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; box-shadow: 0 1px 4px rgba(0,0,0,0.35), inset 0 0 0 1px var(--rule); }
   .choice .txt strong { display: block; font-size: 1.05rem; margin-bottom: 2px; }
   .choice .txt span { font-size: 0.85rem; color: var(--ink-soft); }
   .choice .arrow { margin-left: auto; color: var(--ink-soft); font-size: 1.2rem; }
@@ -53,17 +55,17 @@
 
   <div class="choices">
     <a class="choice" href="methode.html">
-      <span class="icon" style="background:var(--accent2);">📖</span>
+      <span class="icon"><img src="media/image2.jpg" alt=""></span>
       <span class="txt"><strong>De Methode</strong><span>Het volledige boek, van voorwoord tot bijlagen</span></span>
       <span class="arrow">→</span>
     </a>
     <a class="choice" href="snelzoeker.html">
-      <span class="icon" style="background:var(--accent);">🔍</span>
+      <span class="icon"><img src="media/image2.jpg" alt=""><span class="badge">🔍</span></span>
       <span class="txt"><strong>Snelzoeker</strong><span>Stijlen, interactiepatronen &amp; themakaartjes direct opzoeken</span></span>
       <span class="arrow">→</span>
     </a>
     <a class="choice" href="snelzoeker.html?tab=mijncirkel">
-      <span class="icon" style="background:conic-gradient(#D6453D 0deg 90deg, var(--accent2) 90deg 180deg, #D6453D 180deg 270deg, var(--accent2) 270deg 360deg); box-shadow:inset 0 0 0 1px #000;"></span>
+      <span class="icon"><img src="media/Circle%20Logo.png" alt=""></span>
       <span class="txt"><strong>Mijn Cirkel</strong><span>Jouw eigen sterkten, valkuilen, leerpunten &amp; afkeuren invullen</span></span>
       <span class="arrow">→</span>
     </a>
