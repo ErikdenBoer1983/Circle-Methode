@@ -31,7 +31,7 @@
 
   .stijlranglijst { width: min(88vw, 420px); margin: 18px auto 0; border-top: 1px solid #eee; padding-top: 12px; }
   .stijlranglijst .rij { display: flex; align-items: center; gap: 8px; padding: 3px 2px; }
-  .stijlranglijst .dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; }
+  .stijlranglijst .dot { width: 9px; height: 9px; border-radius: 50%; flex: 0 0 auto; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.15); }
   .stijlranglijst .label { font-size: 0.66rem; color: #b3b3b3; min-width: 58px; }
   .stijlranglijst .naam { font-size: 0.78rem; color: #888; }
   .stijlranglijst .score { margin-left: auto; font-size: 0.7rem; color: #bbb; }
@@ -71,7 +71,20 @@
     });
 
     const oriNames = { c1: "Ondersteunen", c2: "Ondernemen", c3: "Onderbouwen", c4: "Overdenken", c5: "Overleggen", c6: "Overeenkomen" };
-    const styleColors = { c1: "#1F7A3D", c2: "#D64545", c3: "#3090D8", c4: "#7D3C5C", c5: "#D9A916", c6: "#E8752C" };
+    // Zelfde scoreband-kleuren als in de Snelzoeker (12-72, 42 gemiddeld) -
+    // de stip geeft dus de sterkte van de score aan, niet de eigen stijlkleur.
+    const scoreBands = [
+      { min: 60, max: 72, bg: "#D6453D" },
+      { min: 48, max: 59, bg: "#E8A33D" },
+      { min: 36, max: 47, bg: "#8FC79E" },
+      { min: 24, max: 35, bg: "#8FBEDB" },
+      { min: 12, max: 23, bg: "#ffffff" }
+    ];
+    function scoreKleur(score) {
+      const n = Number(score);
+      for (const b of scoreBands) { if (n >= b.min && n <= b.max) return b.bg; }
+      return n > 72 ? scoreBands[0].bg : scoreBands[scoreBands.length - 1].bg;
+    }
     const rangLabels = ["Hoofdstijl", "Hulpstijl", "Substijl", "Substijl", "Substijl", "Substijl"];
     const scores = opgeslagen.scores || {};
     const codes = ["c1", "c2", "c3", "c4", "c5", "c6"];
@@ -81,7 +94,7 @@
       const gerangschikt = ingevuld.slice().sort((a, b) => Number(scores[b]) - Number(scores[a]));
       lijst.innerHTML = gerangschikt.map((c, i) => `
         <div class="rij">
-          <span class="dot" style="background:${styleColors[c]};"></span>
+          <span class="dot" style="background:${scoreKleur(scores[c])};"></span>
           <span class="label">${rangLabels[i] || "Substijl"}</span>
           <span class="naam">${oriNames[c]}</span>
           <span class="score">${scores[c]}</span>
