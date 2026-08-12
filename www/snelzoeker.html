@@ -92,7 +92,7 @@
   @media (max-width:420px) { .score-grid { grid-template-columns:repeat(2,1fr); } }
   .score-veld { background:#fff; border:1px solid var(--rule); border-radius:8px; padding:8px 10px; text-align:center; }
   .score-veld label { display:block; font-size:0.72rem; font-weight:700; margin-bottom:4px; }
-  .score-veld input { width:100%; text-align:center; font-family:inherit; font-size:1rem; padding:5px; border:1px solid var(--rule); border-radius:6px; }
+  .score-veld input { width:100%; text-align:center; font-family:inherit; font-size:1rem; padding:5px; border:1px solid var(--rule); border-radius:6px; background:transparent; }
   .hoofdstijl-uitkomst { background:var(--hl); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; margin:14px 0; font-size:0.92rem; }
   .hoofdstijl-uitkomst strong { font-size:1.05rem; }
   .hoofdstijl-uitkomst .rij { margin:0 0 6px; }
@@ -107,16 +107,16 @@
 
   .team-icon-img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
   .team-table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0; }
-  table.team-table { border-collapse:collapse; width:100%; min-width:760px; font-size:0.82rem; }
-  table.team-table th, table.team-table td { border:1px solid var(--rule); padding:6px 7px; text-align:center; }
-  table.team-table th { background:var(--panel); font-weight:700; }
-  table.team-table td.naam-cel { text-align:left; min-width:140px; }
-  table.team-table td.naam-cel input { width:100%; border:1px solid transparent; background:transparent; font-family:inherit; font-size:0.85rem; font-weight:700; padding:4px; }
+  table.team-table { border-collapse:collapse; width:100%; min-width:420px; font-size:0.7rem; }
+  table.team-table th, table.team-table td { border:1px solid var(--rule); padding:3px 2px; text-align:center; }
+  table.team-table th { background:var(--panel); font-weight:700; font-size:0.66rem; }
+  table.team-table td.naam-cel { text-align:left; min-width:76px; }
+  table.team-table td.naam-cel input { width:100%; border:1px solid transparent; background:transparent; font-family:inherit; font-size:0.72rem; font-weight:700; padding:3px; }
   table.team-table td.naam-cel input:focus { border-color:var(--rule); background:#fff; border-radius:4px; }
-  table.team-table input.score-input { width:52px; text-align:center; font-family:inherit; font-size:0.85rem; border:1px solid transparent; border-radius:4px; padding:4px 2px; color:var(--ink); }
-  table.team-table input.score-input:focus { border-color:var(--ink-soft); background:rgba(255,255,255,0.6); }
+  table.team-table input.score-input { width:32px; text-align:center; font-family:inherit; font-size:0.72rem; border:1px solid transparent; border-radius:4px; padding:3px 1px; color:var(--ink); background:transparent; }
+  table.team-table input.score-input:focus { border-color:var(--ink-soft); }
   table.team-table tr.gemiddeld td { font-weight:700; border-top:2px solid var(--ink); }
-  table.team-table td.verwijder-cel { border:none; padding:2px; }
+  table.team-table td.verwijder-cel { border:none; padding:1px; }
   .verwijder-btn { background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:1rem; padding:2px 6px; }
   .verwijder-btn:hover { color:var(--circle-red); }
   .team-add-btn { margin-top:10px; background:var(--accent2); color:#fff; border:none; border-radius:20px; padding:9px 18px; font-family:inherit; font-weight:700; font-size:0.85rem; cursor:pointer; }
@@ -371,6 +371,7 @@ document.querySelectorAll(".tab-btn").forEach(b => {
     const veld = scoreInputs[c].closest(".score-veld");
     const col = scoreColor(scoreInputs[c].value);
     veld.style.background = col.bg;
+    veld.querySelector("label").style.color = col.fg;
     scoreInputs[c].style.color = col.fg;
   }
   codes.forEach(kleurVeld);
@@ -441,12 +442,24 @@ document.querySelectorAll(".tab-btn").forEach(b => {
   const STORAGE_KEY = "circleMethode.team";
   let leden = [];
   try { leden = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (e) { leden = []; }
-  if (!leden.length) {
-    // Je kunt nooit een teamlid toevoegen zonder dat je zelf in het team staat -
-    // het eerste lid ben je dus zelf, overgenomen uit Mijn Cirkel.
+  if (!leden.length) leden = [{ naam: "", c1: "", c2: "", c3: "", c4: "", c5: "", c6: "" }];
+
+  // Je kunt nooit een teamlid toevoegen zonder dat je zelf in het team staat -
+  // het eerste lid ben je dus zelf, overgenomen uit Mijn Cirkel. Dit wordt elke
+  // keer dat de Team-tab geopend wordt opnieuw gecheckt (niet alleen bij het
+  // laden van de pagina), zodat je niet eerst de app hoeft te herstarten nadat
+  // je net je eigen cirkel hebt ingevuld. Bestaande handmatige invoer in rij 1
+  // wordt nooit overschreven.
+  function verversEigenRij() {
+    const rij0 = leden[0];
+    const allesLeeg = codes.every(c => !rij0[c]);
+    if (!allesLeeg) return;
     let eigenScores = {};
     try { eigenScores = (JSON.parse(localStorage.getItem("circleMethode.mijnCirkel")) || {}).scores || {}; } catch (e) { eigenScores = {}; }
-    leden = [{ naam: "", c1: eigenScores.c1 || "", c2: eigenScores.c2 || "", c3: eigenScores.c3 || "", c4: eigenScores.c4 || "", c5: eigenScores.c5 || "", c6: eigenScores.c6 || "" }];
+    if (!codes.some(c => eigenScores[c])) return;
+    codes.forEach(c => { rij0[c] = eigenScores[c] || ""; });
+    renderTabel();
+    opslaan();
   }
 
   const headCodes = document.getElementById("teamHeadCodes");
@@ -512,6 +525,9 @@ document.querySelectorAll(".tab-btn").forEach(b => {
     renderGemiddeld();
   }
   renderTabel();
+  verversEigenRij();
+  const teamTabBtn = document.querySelector('.tab-btn[data-tab="team"]');
+  if (teamTabBtn) teamTabBtn.addEventListener("click", verversEigenRij);
 
   tbody.addEventListener("input", (e) => {
     const t = e.target;
