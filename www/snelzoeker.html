@@ -68,7 +68,7 @@
   .tab-panel { display:none; }
   .tab-panel.active { display:block; }
 
-  .cirkel-wrap { width:min(96vw,600px); margin:14px auto 26px; position:relative; }
+  .cirkel-wrap { width:min(100%,460px); margin:14px auto 26px; position:relative; }
   .cirkel-wrap img { width:100%; height:auto; display:block; border-radius:16px; box-shadow:0 8px 26px rgba(43,38,32,0.22); }
   .cirkel-overlay { position:absolute; background:rgba(255,255,255,0.4); border-radius:6px; padding:5px 8px;
     font-size:0.62rem; line-height:1.25; font-weight:700; color:#000; overflow:hidden; pointer-events:none; white-space:pre-line; box-sizing:border-box; }
@@ -87,6 +87,39 @@
   .cirkel-caption { text-align:center; font-size:0.78rem; color:var(--ink-soft); margin:0 0 18px; }
   .save-indicator { position:fixed; left:50%; bottom:78px; transform:translate(-50%,10px); opacity:0; background:var(--ink); color:#fff; font-size:0.8rem; padding:7px 16px; border-radius:20px; transition:all 0.25s ease; pointer-events:none; z-index:150; }
   .save-indicator.show { opacity:0.92; transform:translate(-50%,0); }
+
+  .score-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:14px 0; }
+  @media (max-width:420px) { .score-grid { grid-template-columns:repeat(2,1fr); } }
+  .score-veld { background:#fff; border:1px solid var(--rule); border-radius:8px; padding:8px 10px; text-align:center; }
+  .score-veld label { display:block; font-size:0.72rem; font-weight:700; margin-bottom:4px; }
+  .score-veld input { width:100%; text-align:center; font-family:inherit; font-size:1rem; padding:5px; border:1px solid var(--rule); border-radius:6px; }
+  .hoofdstijl-uitkomst { background:var(--hl); border:1px solid var(--rule); border-radius:8px; padding:12px 14px; margin:14px 0; font-size:0.92rem; }
+  .hoofdstijl-uitkomst strong { font-size:1.05rem; }
+  .hoofdstijl-uitkomst .rij { margin:0 0 6px; }
+  .hoofdstijl-uitkomst .rij:last-child { margin-bottom:0; }
+  .score-totaal { font-size:0.85rem; font-weight:700; margin:0 0 4px; }
+  .score-totaal.ok { color:var(--accent2); }
+  .score-totaal.fout { color:var(--circle-red); }
+
+  .score-legenda { display:flex; flex-wrap:wrap; gap:10px; margin:12px 0; font-size:0.76rem; color:var(--ink-soft); }
+  .score-legenda span { display:inline-flex; align-items:center; gap:5px; }
+  .score-legenda i { width:12px; height:12px; border-radius:3px; display:inline-block; border:1px solid var(--rule); }
+
+  .team-icon-img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
+  .team-table-scroll { overflow-x:auto; -webkit-overflow-scrolling:touch; margin:14px 0; }
+  table.team-table { border-collapse:collapse; width:100%; min-width:760px; font-size:0.82rem; }
+  table.team-table th, table.team-table td { border:1px solid var(--rule); padding:6px 7px; text-align:center; }
+  table.team-table th { background:var(--panel); font-weight:700; }
+  table.team-table td.naam-cel { text-align:left; min-width:140px; }
+  table.team-table td.naam-cel input { width:100%; border:1px solid transparent; background:transparent; font-family:inherit; font-size:0.85rem; font-weight:700; padding:4px; }
+  table.team-table td.naam-cel input:focus { border-color:var(--rule); background:#fff; border-radius:4px; }
+  table.team-table input.score-input { width:52px; text-align:center; font-family:inherit; font-size:0.85rem; border:1px solid transparent; border-radius:4px; padding:4px 2px; color:var(--ink); }
+  table.team-table input.score-input:focus { border-color:var(--ink-soft); background:rgba(255,255,255,0.6); }
+  table.team-table tr.gemiddeld td { font-weight:700; border-top:2px solid var(--ink); }
+  table.team-table td.verwijder-cel { border:none; padding:2px; }
+  .verwijder-btn { background:none; border:none; color:var(--ink-soft); cursor:pointer; font-size:1rem; padding:2px 6px; }
+  .verwijder-btn:hover { color:var(--circle-red); }
+  .team-add-btn { margin-top:10px; background:var(--accent2); color:#fff; border:none; border-radius:20px; padding:9px 18px; font-family:inherit; font-weight:700; font-size:0.85rem; cursor:pointer; }
 </style>
 </head>
 <body>
@@ -143,7 +176,6 @@
   <section class="tab-panel" id="panel-themas">
     <div class="card">
       <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Themakaart-wijzer — welk kaartje pak ik erbij?</h3>
-      <p style="margin:0 0 14px;font-size:0.8rem;color:var(--ink-soft);font-style:italic;">(Dit "wanneer gebruik je dit"-zinnetje is door mij toegevoegd als praktische wegwijzer, niet letterlijk uit het boek.)</p>
       <div id="wijzerGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;text-align:left;"></div>
     </div>
 
@@ -200,6 +232,38 @@
           <textarea id="mcLeerpunten" data-key="leerpunten" placeholder="Waar wil je in groeien?"></textarea>
         </div>
       </div>
+
+      <h3 style="margin:26px 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Mijn scores</h3>
+      <p style="margin:0 0 4px;color:var(--ink-soft);font-size:0.9rem;">Vul per stijl je score in (12 = laagste, 72 = hoogste, 42 = gemiddeld). Alle 6 scores samen moeten optellen tot 252.</p>
+      <div class="score-grid" id="scoreGrid"></div>
+      <p class="score-totaal" id="scoreTotaal"></p>
+      <div class="hoofdstijl-uitkomst" id="hoofdstijlBox"></div>
+    </div>
+  </section>
+
+  <section class="tab-panel" id="panel-team">
+    <div class="card">
+      <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Team</h3>
+      <p style="margin:0 0 14px;color:var(--ink-soft);font-size:0.9rem;">Vul de scores van je team in. De kleur laat de intensiteit van de voorkeur zien; de onderste rij is het teamgemiddelde.</p>
+
+      <div class="team-table-scroll">
+        <table class="team-table" id="teamTable">
+          <thead>
+            <tr id="teamHeadCodes"></tr>
+            <tr id="teamHeadNamen"></tr>
+            <tr id="teamHeadGericht"></tr>
+            <tr id="teamHeadIntro"></tr>
+          </thead>
+          <tbody id="teamBody"></tbody>
+          <tfoot>
+            <tr class="gemiddeld" id="teamGemiddeld"></tr>
+          </tfoot>
+        </table>
+      </div>
+      <button class="team-add-btn" id="teamAddBtn">+ Lid toevoegen</button>
+
+      <div class="score-legenda" id="scoreLegenda"></div>
+      <p style="font-size:0.78rem;color:var(--ink-soft);margin-top:10px;">Relatiegericht = gericht op de relatie ("hoe gaat het met je?"), Taakgericht = gericht op de taak ("hoeveel orders heb je verwerkt?"). Extravert haalt energie uit anderen, Introvert uit zichzelf.</p>
     </div>
   </section>
 
@@ -221,8 +285,12 @@
     <span class="tab-label">Thema's</span>
   </button>
   <button class="tab-btn" data-tab="mijncirkel">
-    <span class="tab-icon" style="background:conic-gradient(var(--circle-red) 0deg 90deg, var(--accent2) 90deg 180deg, var(--circle-red) 180deg 270deg, var(--accent2) 270deg 360deg); box-shadow:inset 0 0 0 1px #000;"></span>
+    <span class="tab-icon" style="box-shadow:inset 0 0 0 1px #000;"><img class="team-icon-img" src="media/Circle%20Logo.png" alt=""></span>
     <span class="tab-label">Mijn Cirkel</span>
+  </button>
+  <button class="tab-btn" data-tab="team">
+    <span class="tab-icon"><img class="team-icon-img" src="media/file_00000000cff082439f58ab2693812909.png" alt=""></span>
+    <span class="tab-label">Team</span>
   </button>
 </nav>
 
@@ -232,10 +300,31 @@
 <script>
 const codes = ["c1","c2","c3","c4","c5","c6"];
 
+// Scoreband op basis van Ruud's voorbeeld (12 laagste, 72 hoogste, 42 gemiddeld).
+// Grenzen zijn een eerste inschatting op basis van het voorbeeld - laat het weten
+// als de exacte grenzen anders moeten liggen.
+const scoreBands = [
+  { min: 60, max: 72, label: "Zeer sterke voorkeur", bg: "#D6453D", fg: "#ffffff" },
+  { min: 48, max: 59, label: "Sterke voorkeur", bg: "#E8A33D", fg: "#2b2620" },
+  { min: 36, max: 47, label: "Gemiddelde voorkeur", bg: "#8FC79E", fg: "#2b2620" },
+  { min: 24, max: 35, label: "Minder voorkeur", bg: "#8FBEDB", fg: "#2b2620" },
+  { min: 12, max: 23, label: "Minst geprefereerde voorkeur", bg: "#ffffff", fg: "#2b2620" }
+];
+function scoreColor(score) {
+  const n = Number(score);
+  if (score === "" || score === null || score === undefined || isNaN(n)) return { bg: "#ffffff", fg: "#2b2620" };
+  for (const b of scoreBands) { if (n >= b.min && n <= b.max) return b; }
+  return n > 72 ? scoreBands[0] : scoreBands[scoreBands.length - 1];
+}
+function korteStijlNaam(c) { return (oriNames[c] || "").replace(/^C\d\s/, ""); }
+
 function showTab(name) {
   document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.id === "panel-" + name));
   document.querySelectorAll(".tab-btn").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
-  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  // Scroll naar de top van de inhoud, niet naar de top van de pagina - anders
+  // duwt de header (logo's + titel) de tab-inhoud elke keer weer ~40% omlaag.
+  const wrap = document.querySelector(".wrap");
+  if (wrap) wrap.scrollIntoView({ behavior: "instant" in window ? "instant" : "auto", block: "start" });
 }
 document.querySelectorAll(".tab-btn").forEach(b => {
   b.addEventListener("click", () => showTab(b.dataset.tab));
@@ -264,11 +353,64 @@ document.querySelectorAll(".tab-btn").forEach(b => {
   }
   velden.forEach(v => { v.value = opgeslagen[v.dataset.key] || ""; verversOverlay(v.dataset.key, v.value); });
 
+  // --- Mijn scores (12-72 per stijl) + hoofd-/hulp-/substijlen ---
+  const scores = opgeslagen.scores || {};
+  const scoreGrid = document.getElementById("scoreGrid");
+  const scoreInputs = {};
+  codes.forEach(c => {
+    const veld = document.createElement("div");
+    veld.className = "score-veld";
+    veld.innerHTML = `<label>${korteStijlNaam(c)}</label><input type="number" min="12" max="72" inputmode="numeric" data-code="${c}">`;
+    scoreGrid.appendChild(veld);
+    const input = veld.querySelector("input");
+    input.value = scores[c] || "";
+    scoreInputs[c] = input;
+    input.addEventListener("input", () => kleurVeld(c));
+  });
+  function kleurVeld(c) {
+    const veld = scoreInputs[c].closest(".score-veld");
+    const col = scoreColor(scoreInputs[c].value);
+    veld.style.background = col.bg;
+    scoreInputs[c].style.color = col.fg;
+  }
+  codes.forEach(kleurVeld);
+
+  const scoreTotaal = document.getElementById("scoreTotaal");
+  function toonTotaal() {
+    let som = 0;
+    codes.forEach(c => { const n = Number(scoreInputs[c].value); if (!isNaN(n) && scoreInputs[c].value !== "") som += n; });
+    if (!som) { scoreTotaal.textContent = ""; scoreTotaal.className = "score-totaal"; return; }
+    const ok = som === 252;
+    scoreTotaal.textContent = `Totaal: ${som} / 252` + (ok ? " ✓" : "");
+    scoreTotaal.className = "score-totaal " + (ok ? "ok" : "fout");
+  }
+  toonTotaal();
+
+  const hoofdstijlBox = document.getElementById("hoofdstijlBox");
+  function toonHoofdstijl() {
+    const ingevuld = codes.filter(c => scoreInputs[c].value !== "" && !isNaN(Number(scoreInputs[c].value)));
+    if (!ingevuld.length) {
+      hoofdstijlBox.innerHTML = `<em style="color:var(--ink-soft);">Vul minstens één score in om je hoofd-, hulp- en substijlen te zien.</em>`;
+      return;
+    }
+    const gerangschikt = ingevuld.slice().sort((a, b) => Number(scoreInputs[b].value) - Number(scoreInputs[a].value));
+    const naam = (c) => { const col = scoreColor(scoreInputs[c].value); return `<strong style="color:${col.bg === "#ffffff" ? "var(--ink)" : col.bg};">${oriNames[c]}</strong> (${scoreInputs[c].value})`; };
+    let html = "";
+    if (gerangschikt[0]) html += `<p class="rij">Hoofdstijl: ${naam(gerangschikt[0])}</p>`;
+    if (gerangschikt[1]) html += `<p class="rij">Hulpstijl: ${naam(gerangschikt[1])}</p>`;
+    if (gerangschikt.length > 2) html += `<p class="rij">Substijlen: ${gerangschikt.slice(2).map(naam).join(", ")}</p>`;
+    hoofdstijlBox.innerHTML = html;
+  }
+  toonHoofdstijl();
+
   const indicator = document.getElementById("saveIndicator");
   let saveTimer, hideTimer;
   function opslaan() {
     const data = {};
     velden.forEach(v => { data[v.dataset.key] = v.value; });
+    const scoreData = {};
+    codes.forEach(c => { scoreData[c] = scoreInputs[c].value; });
+    data.scores = scoreData;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     indicator.classList.add("show");
     clearTimeout(hideTimer);
@@ -281,9 +423,133 @@ document.querySelectorAll(".tab-btn").forEach(b => {
       saveTimer = setTimeout(opslaan, 500);
     });
   });
+  codes.forEach(c => {
+    scoreInputs[c].addEventListener("input", () => {
+      toonTotaal();
+      toonHoofdstijl();
+      clearTimeout(saveTimer);
+      saveTimer = setTimeout(opslaan, 500);
+    });
+  });
 
   const gevraagdeTab = new URLSearchParams(location.search).get("tab");
   if (gevraagdeTab) showTab(gevraagdeTab);
+})();
+
+// --- Team: leden met naam + score per stijl, lokaal onthouden ---
+(function() {
+  const STORAGE_KEY = "circleMethode.team";
+  let leden = [];
+  try { leden = JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; } catch (e) { leden = []; }
+  if (!leden.length) {
+    // Je kunt nooit een teamlid toevoegen zonder dat je zelf in het team staat -
+    // het eerste lid ben je dus zelf, overgenomen uit Mijn Cirkel.
+    let eigenScores = {};
+    try { eigenScores = (JSON.parse(localStorage.getItem("circleMethode.mijnCirkel")) || {}).scores || {}; } catch (e) { eigenScores = {}; }
+    leden = [{ naam: "", c1: eigenScores.c1 || "", c2: eigenScores.c2 || "", c3: eigenScores.c3 || "", c4: eigenScores.c4 || "", c5: eigenScores.c5 || "", c6: eigenScores.c6 || "" }];
+  }
+
+  const headCodes = document.getElementById("teamHeadCodes");
+  const headNamen = document.getElementById("teamHeadNamen");
+  const headGericht = document.getElementById("teamHeadGericht");
+  const headIntro = document.getElementById("teamHeadIntro");
+  const gerichtHeid = { c1: ["Relatiegericht","#D6453D"], c2: ["Taakgericht","#3E7CA6"], c3: ["Taakgericht","#3E7CA6"], c4: ["Taakgericht","#3E7CA6"], c5: ["Relatiegericht","#D6453D"], c6: ["Relatiegericht","#D6453D"] };
+  const introExtra = { c1: "Introvert", c2: "Extravert", c3: "Introvert", c4: "Introvert", c5: "Extravert", c6: "Extravert" };
+  headCodes.innerHTML = `<th></th>` + codes.map(c => `<th>${c.toUpperCase()}</th>`).join("") + `<th>Totaal</th><th></th>`;
+  headNamen.innerHTML = `<th></th>` + codes.map(c => `<th>${korteStijlNaam(c)}</th>`).join("") + `<th></th><th></th>`;
+  headGericht.innerHTML = `<th></th>` + codes.map(c => `<th style="color:${gerichtHeid[c][1]};">${gerichtHeid[c][0]}</th>`).join("") + `<th></th><th></th>`;
+  headIntro.innerHTML = `<th></th>` + codes.map(c => `<th>${introExtra[c]}</th>`).join("") + `<th></th><th></th>`;
+
+  const legenda = document.getElementById("scoreLegenda");
+  legenda.innerHTML = scoreBands.map(b => `<span><i style="background:${b.bg};"></i>${b.label} (${b.min}-${b.max})</span>`).join("");
+
+  const tbody = document.getElementById("teamBody");
+  const gemRow = document.getElementById("teamGemiddeld");
+
+  function opslaan() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(leden));
+  }
+
+  function berekenTotaal(lid) {
+    let som = 0, aantal = 0;
+    codes.forEach(c => { const n = Number(lid[c]); if (lid[c] !== "" && !isNaN(n)) { som += n; aantal++; } });
+    return aantal ? som : null;
+  }
+
+  function renderGemiddeld() {
+    let cellen = `<td style="text-align:left;">TOTAAL GEMIDDELD</td>`;
+    let somGem = 0;
+    codes.forEach(c => {
+      const waarden = leden.map(l => Number(l[c])).filter(n => !isNaN(n) && l && l[c] !== "");
+      const gem = waarden.length ? Math.round(waarden.reduce((a,b) => a+b, 0) / waarden.length) : "";
+      if (gem !== "") somGem += gem;
+      const col = scoreColor(gem);
+      cellen += `<td style="background:${col.bg};color:${col.fg};">${gem}</td>`;
+    });
+    cellen += `<td>${somGem || ""}</td><td></td>`;
+    gemRow.innerHTML = cellen;
+  }
+
+  function renderRij(lid, idx) {
+    const tr = document.createElement("tr");
+    const naamLabel = idx === 0 ? "Naam (jij)" : "Naam";
+    let html = `<td class="naam-cel"><input type="text" placeholder="${naamLabel}" value="${(lid.naam||"").replace(/"/g,"&quot;")}" data-idx="${idx}" data-field="naam"></td>`;
+    codes.forEach(c => {
+      const col = scoreColor(lid[c]);
+      html += `<td style="background:${col.bg};"><input class="score-input" type="number" min="12" max="72" inputmode="numeric" style="color:${col.fg};" value="${lid[c]||""}" data-idx="${idx}" data-field="${c}"></td>`;
+    });
+    const totaal = berekenTotaal(lid);
+    const totaalKleur = totaal === null ? "var(--ink-soft)" : (totaal === 252 ? "var(--accent2)" : "var(--circle-red)");
+    html += `<td style="font-weight:700;color:${totaalKleur};" data-totaal-cel="${idx}">${totaal === null ? "" : totaal}</td>`;
+    html += `<td class="verwijder-cel">${idx === 0 ? "" : `<button class="verwijder-btn" data-idx="${idx}" title="Verwijder lid">✕</button>`}</td>`;
+    tr.innerHTML = html;
+    return tr;
+  }
+
+  function renderTabel() {
+    tbody.innerHTML = "";
+    leden.forEach((lid, idx) => tbody.appendChild(renderRij(lid, idx)));
+    renderGemiddeld();
+  }
+  renderTabel();
+
+  tbody.addEventListener("input", (e) => {
+    const t = e.target;
+    const idx = Number(t.dataset.idx);
+    const field = t.dataset.field;
+    if (idx === undefined || !field || !leden[idx]) return;
+    leden[idx][field] = t.value;
+    if (field !== "naam") {
+      const col = scoreColor(t.value);
+      t.parentElement.style.background = col.bg;
+      t.style.color = col.fg;
+      const totaal = berekenTotaal(leden[idx]);
+      const totaalCel = tbody.querySelector(`[data-totaal-cel="${idx}"]`);
+      if (totaalCel) {
+        totaalCel.textContent = totaal === null ? "" : totaal;
+        totaalCel.style.color = totaal === null ? "var(--ink-soft)" : (totaal === 252 ? "var(--accent2)" : "var(--circle-red)");
+      }
+      renderGemiddeld();
+    }
+    clearTimeout(window.__teamSaveTimer);
+    window.__teamSaveTimer = setTimeout(opslaan, 500);
+  });
+
+  tbody.addEventListener("click", (e) => {
+    const btn = e.target.closest(".verwijder-btn");
+    if (!btn) return;
+    const idx = Number(btn.dataset.idx);
+    if (idx === 0) return; // jijzelf blijft altijd in het team
+    leden.splice(idx, 1);
+    renderTabel();
+    opslaan();
+  });
+
+  document.getElementById("teamAddBtn").addEventListener("click", () => {
+    leden.push({ naam: "", c1: "", c2: "", c3: "", c4: "", c5: "", c6: "" });
+    renderTabel();
+    opslaan();
+  });
 })();
 
 function fillSelect(sel, includeEmpty) {
@@ -487,12 +753,12 @@ const wanneerGebruikUitgebreid = {
   "Basis (kernwoorden per oriëntatie)": "Gebruik dit als geheugensteun tijdens een gesprek: in één oogopslag het kernwoord, de intentie en de vraag die elke stijl zichzelf stelt. Handig om er tussendoor even bij te pakken.",
   "Hoe leren we?": "Gebruik dit als je een training, instructie of overdracht voorbereidt. Iedere stijl leert anders — dit kaartje laat zien wat elke stijl motiveert om te leren en wat juist een blokkade oplevert, zodat je je aanpak kunt afstemmen.",
   "Efficiënter omgaan met tijd": "Gebruik dit als iemand (of jijzelf) worstelt met prioriteiten, deadlines of moeite heeft om \"nee\" te zeggen. Het laat zien wat voor elke stijl productief en contraproductief tijdgebruik is.",
-  "Beter omgaan met Verandering": "Gebruik dit bij een reorganisatie, nieuwe werkwijze of ander veranderproces. Het laat zien wie er van nature in meegaat, wie er remt, en waarom — zodat je weerstand beter kunt begrijpen in plaats van bestrijden.",
-  "Communicatie en Gespreksvoering": "Gebruik dit ter voorbereiding op een belangrijk of lastig gesprek. Het loopt fase voor fase (opening, argumentatie, afsluiting) langs wat bij elke stijl werkt en wat averechts werkt.",
-  "Feedback geven": "Gebruik dit vlak vóórdat je iemand feedback gaat geven. Het laat per stijl zien hoe je het beste brengt, en wat je juist moet vermijden om niet averechts te werken.",
+  "Beter omgaan met Verandering": "Gebruik dit bij een reorganisatie, nieuwe werkwijze of ander veranderproces. Het laat zien welke stijl er van nature in meegaat, welke stijl remt, en waarom — zodat je weerstand beter kunt begrijpen in plaats van bestrijden.",
+  "Communicatie en Gespreksvoering": "Gebruik dit ter voorbereiding op een belangrijk of lastig gesprek. Het loopt fase voor fase (voorbereiding, opening, argumentatie, afsluiting) langs wat bij elke stijl werkt en wat averechts werkt.",
+  "Feedback op Gedrag geven": "Het laat de algemene aanpak zien. Deze geldt voor alle stijlen. Gebruik dit vlak voor dat je iemand feedback gaat geven. Daarnaast laat het per stijl zien hoe je dit het beste doet, of wat je juist moet vermijden.",
   "Onderhandelen": "Gebruik dit ter voorbereiding op een onderhandeling. Het laat zien hoe elke stijl zich opstelt, of iemand meer op de relatie of op de deal zit, en waar de weerstand zit.",
-  "Samenwerken": "Gebruik dit als een samenwerking stroef loopt. Het laat zien wat elke stijl van nature bijdraagt aan een team, wat er misgaat als het doorslaat, en wanneer iemand dreigt af te haken.",
-  "Leidinggeven en coachen": "Gebruik dit als je moet schakelen tussen de rollen leider, manager, coach of baas. Het laat per stijl zien hoe je die rol invult, én waar je zelf op moet letten."
+  "Samenwerken": "Gebruik dit tijdens de samenwerking. Het laat zien wat elke stijl van nature bijdraagt aan een team, wat er misgaat als het doorslaat, en wanneer een stijl dreigt af te haken.",
+  "Leidinggeven en coachen": "Gebruik dit als je moet schakelen tussen de rollen leider, manager, coach of baas. Het laat per stijl zien hoe deze die rol invult en waar elke stijl op moet letten."
 };
 
 function renderWaarom() {

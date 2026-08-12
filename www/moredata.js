@@ -2,12 +2,12 @@
 // heeft net het onderwerp 'de nieuwe organisatie' naar voren gebracht" - dezelfde situatie,
 // zes verschillende vragen per stijl. Rechtstreeks uit het document.
 const vergaderingVragen = {
-  c1: ["Is het goed voor iedereen?", "We kiezen toch wel voor kwaliteit?"],
-  c2: ["Wie heeft de leiding?", "Wie gaat er onderhandelen (en hoe scherp)?"],
-  c3: ["Wanneer gebeurt het?", "Op welke criteria beslissen we?"],
-  c4: ["Is er goed nagedacht over X?", "Laten we niet overhaast te werk gaan!"],
-  c5: ["Wie gaan overleggen?", "Wanneer betrekken we de leverancier?"],
-  c6: ["Kiezen we iets leuks te doen?", "Hoe zorgen we ervoor dat we het allemaal leuk vinden?"]
+  c1: ["Is het goed voor iedereen?", "We hebben toch wel respect voor elkaar?"],
+  c2: ["Wie krijgt de leiding?", "Wat levert die nieuwe organisatie eigenlijk op?"],
+  c3: ["Hoe ziet die organisatie er precies uit?", "Volgens welk plan en welke aanpak gaat dat gebeuren?"],
+  c4: ["Is er wel goed over nagedacht?", "Gaan we niet te snel?"],
+  c5: ["Hoe worden wij erbij betrokken?", "Hebben wij inspraak?"],
+  c6: ["Hoeveel ruimte is er om aanpassingen te doen?", "Wordt het niet te veel dichtgetimmerd?"]
 };
 
 // Oorspronkelijke accentkleur per themakaartje, zoals in het Word-document (celachtergrond).
@@ -29,7 +29,7 @@ const themeColors = {
   "Hoe leren we?": { bg: "#FF9900", fg: "#2b2620" },
   "Onderhandelen": { bg: "#CCFFCC", fg: "#2b2620" },
   "Samenwerken": { bg: "#FF0000", fg: "#ffffff" },
-  "Feedback geven": { bg: "#0000CC", fg: "#ffffff" },
+  "Feedback op Gedrag geven": { bg: "#0000CC", fg: "#ffffff" },
   "Leidinggeven en coachen": { bg: "#99CCFF", fg: "#2b2620" },
   "Beter omgaan met Verandering": { bg: "#1B5E3C", fg: "#ffffff" },
   "Basis (algemeen)": { bg: "#C0C0C0", fg: "#2b2620" },
@@ -41,8 +41,8 @@ const themeColors = {
 const themeLevels = [
   { name: "Niveau 1 — Basis", themes: ["Basis (algemeen)", "Basis (kernwoorden per oriëntatie)"] },
   { name: "Niveau 2 — Zelfontwikkeling", themes: ["Hoe leren we?", "Efficiënter omgaan met tijd", "Beter omgaan met Verandering"] },
-  { name: "Niveau 3 — Communicatie", themes: ["Communicatie en Gespreksvoering", "Feedback geven", "Onderhandelen"] },
-  { name: "Niveau 4 — Team & Leiding", themes: ["Samenwerken", "Leidinggeven en coachen"] }
+  { name: "Niveau 3 — Communicatie", themes: ["Communicatie en Gespreksvoering", "Onderhandelen"] },
+  { name: "Niveau 4 — Team & Leiding", themes: ["Samenwerken", "Feedback op Gedrag geven", "Leidinggeven en coachen"] }
 ];
 const themeOrder = themeLevels.flatMap(l => l.themes);
 const themeLevelOf = {};
@@ -169,9 +169,13 @@ themeLevels.forEach(l => l.themes.forEach(t => { themeLevelOf[t] = l.name; }));
   const algemeneFeedbackAanpak = "Feedback geven op gedrag: neem iemand apart! In een \"IK-boodschap\" (wat jij ziet, hoort, ervaart) - beschrijf jouw eigen gevoel erbij - beschrijf wat het effect van zijn/haar gedrag op jou is. Bijvoorbeeld: \"De manier waarop je dit aan mij vraagt vind ik niet prettig, ik word daar onzeker van. Vandaar dat ik je ga ontlopen.\" (gevolgd door stilte: laat de ander reageren). Geef feedback op: het moment zelf - het gedrag, niet op de persoon - een niet veroordelende manier. Geef géén advies. Laat de ander de ruimte!";
   const row = { label: "Algemene aanpak (geldt voor alle stijlen)" };
   ["c1","c2","c3","c4","c5","c6"].forEach(c => { row[c] = algemeneFeedbackAanpak; });
+  // Ruud: op het kaartje "Feedback op Gedrag geven" alleen de algemene aanpak tonen,
+  // niet de 6 stijlen apart (de eerder geextraheerde SVLA-rijen kwamen niet overeen
+  // met het geplastificeerde kaartje) - dus de oude inhoud vervangen, niet aanvullen.
   if (themesData["Feedback geven"]) {
-    themesData["Feedback geven"].unshift(row);
+    delete themesData["Feedback geven"];
   }
+  themesData["Feedback op Gedrag geven"] = [row];
 })();
 
 // Aanvulling "Basis (algemeen)" - het grijze kaartje heeft een 2e kant met Mogelijke
