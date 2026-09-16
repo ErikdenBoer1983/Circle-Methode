@@ -424,7 +424,7 @@ document.querySelectorAll(".tab-btn").forEach(b => {
       return `<div class="rij">
         <span class="dot" style="background:${col.bg};"></span>
         <span class="label">${rangLabels[i] || "Substijl"}</span>
-        <span class="naam">${korteStijlNaam(c)}</span>
+        <span class="naam">${oriNames[c]}</span>
         <span class="score">${scoreInputs[c].value}</span>
       </div>`;
     }).join("");
