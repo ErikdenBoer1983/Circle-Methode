@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vragenlijst — De Circle Oriëntaties Methode®</title>
+<style>
+  :root {
+    --ink: #2b2620; --ink-soft: #55504a; --paper: #fdfcfa; --panel: #f6f1e9;
+    --accent: #D9743D; --accent-soft: #F5C6A0; --accent2: #4E9670; --accent2-soft: #C8E6D3;
+    --circle-red: #D6453D;
+    --rule: #e2d8c8; --hl: #FBE4C8;
+    --maxw: 640px;
+  }
+  * { box-sizing: border-box; }
+  html, body { overflow-x: hidden; max-width: 100%; }
+  body { margin:0; background:var(--paper); color:var(--ink); font-family:"Trebuchet MS","Segoe UI",sans-serif; line-height:1.5; }
+  .wrap { max-width: var(--maxw); margin:0 auto; padding: 20px 16px 40px; }
+  header.top { background: linear-gradient(135deg, var(--accent-soft) 0%, var(--panel) 45%, var(--accent2-soft) 100%); border-bottom:1px solid var(--rule); padding: 26px 20px 20px; text-align:center; }
+  header.top h1 { margin: 0 0 4px; font-size: 1.1rem; letter-spacing:0.02em; text-transform:uppercase; font-weight:700; color: var(--accent); }
+  header.top p { margin:0; color: var(--ink-soft); font-size:0.85rem; }
+  header.top a.back { display:inline-block; margin-top:10px; font-size:0.82rem; color:var(--ink-soft); }
+
+  .progress-wrap { padding: 14px 16px 0; max-width: var(--maxw); margin: 0 auto; }
+  .progress-label { display:flex; justify-content:space-between; font-size:0.78rem; color:var(--ink-soft); margin-bottom:6px; }
+  .progress-bar { height:6px; background:var(--panel); border-radius:4px; overflow:hidden; }
+  .progress-fill { height:100%; background:var(--accent2); transition:width 0.3s ease; }
+
+  .card { background:#fff; border:1px solid var(--rule); border-radius:14px; padding:20px; margin-top:18px; box-shadow: 0 2px 14px rgba(43,38,32,0.05); }
+  .thema-badge { display:inline-block; font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.04em; color:#fff; padding:4px 10px; border-radius:12px; margin-bottom:10px; }
+  h2.blok-titel { margin:0 0 4px; font-size:1.05rem; font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif; }
+  p.instructie { margin:0 0 16px; color:var(--ink-soft); font-size:0.85rem; }
+
+  .stelling { display:flex; align-items:center; gap:12px; background:var(--paper); border:1px solid var(--rule); border-radius:10px; padding:12px 14px; margin-bottom:10px; cursor:pointer; transition:all 0.15s ease; }
+  .stelling:active { transform:scale(0.98); }
+  .stelling.gerankt { background:#fff; border-color:var(--accent2); }
+  .stelling .rang { flex:0 0 auto; width:30px; height:30px; border-radius:50%; background:var(--rule); color:var(--ink-soft); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.9rem; }
+  .stelling.gerankt .rang { background:var(--accent2); color:#fff; }
+  .stelling .tekst { font-size:0.92rem; }
+
+  .blok-nav { display:flex; gap:10px; margin-top:18px; }
+  .btn { font-family:inherit; font-weight:700; font-size:0.88rem; border:none; border-radius:20px; padding:11px 20px; cursor:pointer; }
+  .btn-primary { background:var(--accent2); color:#fff; flex:1; }
+  .btn-primary:disabled { background:var(--rule); color:var(--ink-soft); cursor:not-allowed; }
+  .btn-secondary { background:#fff; border:1px solid var(--rule); color:var(--ink-soft); }
+  .btn-reset { background:none; border:none; color:var(--ink-soft); font-size:0.78rem; text-decoration:underline; cursor:pointer; padding:8px 0 0; }
+
+  .resultaat h2 { font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif; }
+  .rij { display:flex; align-items:center; gap:10px; padding:6px 2px; }
+  .rij .dot { width:12px; height:12px; border-radius:50%; flex:0 0 auto; box-shadow:inset 0 0 0 1px rgba(0,0,0,0.15); }
+  .rij .label { font-size:0.7rem; color:var(--ink-soft); min-width:64px; }
+  .rij .naam { font-size:0.95rem; font-weight:600; }
+  .rij .score { margin-left:auto; font-weight:700; color:var(--ink-soft); }
+  .cta { display:block; text-align:center; background:var(--accent); color:#fff; text-decoration:none; font-weight:700; border-radius:20px; padding:13px 20px; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <h1>Vragenlijst</h1>
+  <p>Ontdek jouw eigen sterkten, valkuilen, leerpunten &amp; afkeuren</p>
+  <a class="back" href="home.html">&larr; Terug naar hoofdscherm</a>
+</header>
+
+<div class="progress-wrap">
+  <div class="progress-label"><span id="progressLabel">Blok 1 van 12</span><span id="progressThema"></span></div>
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+</div>
+
+<div class="wrap">
+  <div id="vraagCard"></div>
+  <div id="resultaatCard"></div>
+</div>
+
+<script>
+const vragenBlokken = [
+  { header: "Ik vind in mijzelf gewoon dat ik:", items: [
+    "er ben om anderen te helpen als zij daarom vragen",
+    "niet afwacht maar kansen grijp",
+    "mijn standpunten met logische argumenten onderbouw",
+    "de tijd neem om na te denken alvorens een beslissing te nemen",
+    "met anderen overleg alvorens een beslissing te nemen",
+    "graag zie dat mijn mening door anderen gedeeld wordt"
+  ]},
+  { header: "Anderen waarderen in mij dat ik hen:", items: [
+    "steun geef in die gevallen dat zij erom vragen",
+    "door actie te ondernemen help om een situatie het hoofd te bieden",
+    "door concrete vragen te stellen henzelf duidelijk maak wat te doen",
+    "rust geef door hen te adviseren “er een nachtje over te slapen”",
+    "help door samen met hen te bekijken welke oplossing voor hen de beste is",
+    "het gevoel geef dat ik medelijden heb met hun lot"
+  ]},
+  { header: "Ik verwacht als vanzelfsprekend van anderen dat zij:", items: [
+    "steun aanbieden als ik daarom vraag",
+    "niet blijven afwachten maar in actie komen",
+    "standpunten logisch en met feiten onderbouwen",
+    "de tijd nemen om na te denken alvorens te beslissen",
+    "met anderen overleggen alvorens een beslissing te nemen",
+    "anderen betrekken in de besluitvorming en hopen dat deze het met het besluit eens zijn"
+  ]},
+  { header: "Ik ben geneigd in mijzelf goed te praten dat ik:", items: [
+    "van de ander dezelfde steun en aandacht eis die ik zelf geef",
+    "de ander het initiatief ontneem als het mij niet snel genoeg gaat",
+    "weinig gevoel toon voor de situatie van de ander",
+    "te veel tijd neem om te beslissen terwijl de situatie om spoed vraagt",
+    "maar in gesprek met de ander blijf terwijl het doel niet haalbaar is",
+    "mezelf aansluit bij de mening van de ander terwijl ik er niet achter sta"
+  ]},
+  { header: "Anderen verwijten mij nog weleens dat ik:", items: [
+    "teveel opkijk naar anderen en te beïnvloeden ben",
+    "te agressief en bazig ben",
+    "mij te koel en afstandelijk gedraag",
+    "te afwachtend ben",
+    "te veel overleg blijf voeren en geen beslissing neem",
+    "mij te veel aanpas aan de mening van anderen"
+  ]},
+  { header: "Ik ben nog weleens geneigd om goed te praten dat anderen:", items: [
+    "ongevraagd een ander vertellen wat goed voor deze persoon is",
+    "iemand het initiatief ontnemen als deze niet snel genoeg handelt",
+    "maar door blijven vragen en niets met de antwoorden doen",
+    "niet terugkomen op een eerder gestelde vraag",
+    "iedereen in alles willen betrekken alvorens iets te beslissen",
+    "bereid zijn hun mening in te ruilen om een afwijzing te voorkomen"
+  ]},
+  { header: "Wat ik mijzelf meer wil aanleren:", items: [
+    "niet te veel vertrouwen op de goede afloop, maar dit ook controleren",
+    "eerst tot tien tellen alvorens tot actie over te gaan",
+    "naast logica ook gevoelens mee laten wegen",
+    "naast luisteren ook mijn eigen gedachten uiten",
+    "naast goed overleg mijn eigen mening meer op de voorgrond plaatsen",
+    "na de ander aangehoord te hebben: vragen welke oplossing hijzelf ziet"
+  ]},
+  { header: "Welk advies geven anderen mij weleens:", items: [
+    "meer voor mezelf opkomen",
+    "meer geduld tonen",
+    "meer op mijn gevoel afgaan",
+    "meer doen en minder afwachten",
+    "meer mijn eigen plan trekken",
+    "een probleem van een ander niet tot mijn eigen probleem maken"
+  ]},
+  { header: "Wat kan ik van anderen leren:", items: [
+    "hun beschaafde, respectvolle én zelfverzekerde manier van optreden",
+    "de manier waarop zij, in overleg met de ander, het initiatief nemen",
+    "de combinatie van zowel feitelijk als gevoelsmatig analyseren",
+    "de rustige wijze waarop zij het initiatief naar zich toe trekken",
+    "het blijven zoeken van het overleg, gevolgd door de actie",
+    "het zoeken naar overeenkomsten, zonder de eigen mening in te leveren"
+  ]},
+  { header: "Ik zou mijzelf verafschuwen als ik:", items: [
+    "geen respect zou tonen voor ieders mening",
+    "geen eigen initiatieven zou ontwikkelen",
+    "mijn argumenten niet logisch zou onderbouwen",
+    "onvoldoende tijd zou nemen om zaken goed te overdenken",
+    "niet zou aanvoelen wat er bij de ander leeft",
+    "in conflictsituaties niets zou doen om ze te helpen oplossen"
+  ]},
+  { header: "Wat raden anderen mij aan te relativeren:", items: [
+    "mijn streven naar absolute perfectie",
+    "mijn actiebereidheid",
+    "mijn behoefte aan logica",
+    "mijn behoefte aan rust en overdenking",
+    "mijn streven naar overleg met anderen",
+    "mijn interesse in wat anderen beweegt"
+  ]},
+  { header: "Ik vind het onbegrijpelijk als anderen:", items: [
+    "hun omgeving niet met respect behandelen",
+    "gelaten afwachten en geen initiatieven ontplooien",
+    "onlogisch en onvoorbereid handelen",
+    "zonder goed te luisteren ondoordacht handelen",
+    "zonder overleg eigen besluiten doordrukken",
+    "geen rekening houden met de gevoelens van anderen"
+  ]}
+];
+
+const themas = [
+  { naam: "Sterkten", kleur: "#4E9670", blokken: [0,1,2] },
+  { naam: "Valkuilen", kleur: "#D6453D", blokken: [3,4,5] },
+  { naam: "Leerpunten", kleur: "#4E9670", blokken: [6,7,8] },
+  { naam: "Afkeuren", kleur: "#D6453D", blokken: [9,10,11] }
+];
+function themaVanBlok(i) { return themas.find(t => t.blokken.includes(i)); }
+
+const codes = ["c1","c2","c3","c4","c5","c6"];
+const oriNames = {c1:"C1 Ondersteunen", c2:"C2 Ondernemen", c3:"C3 Onderbouwen", c4:"C4 Overdenken", c5:"C5 Overleggen", c6:"C6 Overeenkomen"};
+const scoreBands = [
+  { min: 60, max: 72, bg: "#D6453D", fg: "#ffffff" },
+  { min: 48, max: 59, bg: "#E8A33D", fg: "#2b2620" },
+  { min: 36, max: 47, bg: "#8FC79E", fg: "#2b2620" },
+  { min: 24, max: 35, bg: "#8FBEDB", fg: "#2b2620" },
+  { min: 12, max: 23, bg: "#ffffff", fg: "#2b2620" }
+];
+function scoreColor(score) {
+  const n = Number(score);
+  for (const b of scoreBands) { if (n >= b.min && n <= b.max) return b; }
+  return n > 72 ? scoreBands[0] : scoreBands[scoreBands.length - 1];
+}
+
+const STORAGE_KEY = "circleMethode.vragenlijst";
+let opgeslagen = {};
+try { opgeslagen = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch (e) { opgeslagen = {}; }
+let antwoorden = opgeslagen.antwoorden || vragenBlokken.map(() => []);
+let huidigBlok = opgeslagen.huidigBlok || 0;
+if (huidigBlok >= vragenBlokken.length) huidigBlok = vragenBlokken.length - 1;
+
+function opslaan() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({ antwoorden, huidigBlok }));
+}
+
+function toonProgress() {
+  document.getElementById("progressLabel").textContent = `Blok ${huidigBlok + 1} van ${vragenBlokken.length}`;
+  const thema = themaVanBlok(huidigBlok);
+  const badge = document.getElementById("progressThema");
+  badge.textContent = thema.naam;
+  badge.style.color = thema.kleur;
+  document.getElementById("progressFill").style.width = ((huidigBlok) / vragenBlokken.length * 100) + "%";
+}
+
+function volgendeVrijeRang(gegeven) {
+  // gegeven = array van al toegekende rangen in dit blok; volgende rang telt af van 6 naar 1
+  for (let r = 6; r >= 1; r--) { if (!gegeven.includes(r)) return r; }
+  return null;
+}
+
+function renderBlok() {
+  document.getElementById("resultaatCard").innerHTML = "";
+  toonProgress();
+  const blok = vragenBlokken[huidigBlok];
+  const thema = themaVanBlok(huidigBlok);
+  const rangen = antwoorden[huidigBlok].slice(); // index = item-index, value = toegekende rang (of undefined)
+
+  const card = document.getElementById("vraagCard");
+  card.innerHTML = `
+    <div class="card">
+      <span class="thema-badge" style="background:${thema.kleur};">${thema.naam}</span>
+      <h2 class="blok-titel">${blok.header}</h2>
+      <p class="instructie">Tik de stellingen aan van <strong>meest</strong> (eerste tik) tot <strong>minst</strong> (laatste tik) op jou van toepassing.</p>
+      <div id="stellingenLijst"></div>
+      <button class="btn-reset" id="resetBtn">Opnieuw beginnen met dit blokje</button>
+      <div class="blok-nav">
+        ${huidigBlok > 0 ? '<button class="btn btn-secondary" id="vorigeBtn">&larr; Vorige</button>' : ""}
+        <button class="btn btn-primary" id="volgendeBtn" disabled>${huidigBlok === vragenBlokken.length - 1 ? "Bekijk resultaat" : "Volgende &rarr;"}</button>
+      </div>
+    </div>
+  `;
+
+  const lijst = document.getElementById("stellingenLijst");
+  blok.items.forEach((tekst, idx) => {
+    const div = document.createElement("div");
+    div.className = "stelling" + (rangen[idx] ? " gerankt" : "");
+    div.innerHTML = `<span class="rang">${rangen[idx] || ""}</span><span class="tekst">${tekst}</span>`;
+    div.addEventListener("click", () => {
+      if (rangen[idx]) return; // al gerankt, niet opnieuw aanklikbaar
+      const rang = volgendeVrijeRang(rangen.filter(r => r !== undefined));
+      if (rang === null) return;
+      rangen[idx] = rang;
+      antwoorden[huidigBlok] = rangen;
+      opslaan();
+      renderBlok();
+    });
+    lijst.appendChild(div);
+  });
+
+  document.getElementById("volgendeBtn").disabled = rangen.filter(r => r !== undefined).length < 6;
+  document.getElementById("volgendeBtn").addEventListener("click", () => {
+    if (huidigBlok === vragenBlokken.length - 1) {
+      toonResultaat();
+    } else {
+      huidigBlok++;
+      opslaan();
+      renderBlok();
+      window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+    }
+  });
+  const vorigeBtn = document.getElementById("vorigeBtn");
+  if (vorigeBtn) vorigeBtn.addEventListener("click", () => {
+    huidigBlok--;
+    opslaan();
+    renderBlok();
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  });
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    antwoorden[huidigBlok] = [];
+    opslaan();
+    renderBlok();
+  });
+}
+
+function berekenScores() {
+  const scores = { c1: 0, c2: 0, c3: 0, c4: 0, c5: 0, c6: 0 };
+  antwoorden.forEach(blokAntwoorden => {
+    codes.forEach((c, idx) => { scores[c] += blokAntwoorden[idx] || 0; });
+  });
+  return scores;
+}
+
+function toonResultaat() {
+  document.getElementById("progressFill").style.width = "100%";
+  document.getElementById("progressLabel").textContent = "Klaar!";
+  document.getElementById("progressThema").textContent = "";
+  document.getElementById("vraagCard").innerHTML = "";
+
+  const scores = berekenScores();
+  const gerangschikt = codes.slice().sort((a, b) => scores[b] - scores[a]);
+  const rangLabels = ["Hoofdstijl", "Hulpstijl", "Substijl", "Substijl", "Substijl", "Substijl"];
+
+  let rijenHtml = "";
+  gerangschikt.forEach((c, i) => {
+    const col = scoreColor(scores[c]);
+    rijenHtml += `<div class="rij">
+      <span class="dot" style="background:${col.bg};"></span>
+      <span class="label">${rangLabels[i]}</span>
+      <span class="naam">${oriNames[c]}</span>
+      <span class="score">${scores[c]}</span>
+    </div>`;
+  });
+
+  document.getElementById("resultaatCard").innerHTML = `
+    <div class="card resultaat">
+      <h2>Jouw uitkomst</h2>
+      <p class="instructie">Dit zijn je scores op basis van de vragenlijst (totaal ${codes.reduce((s,c)=>s+scores[c],0)} van 252).</p>
+      ${rijenHtml}
+      <a class="cta" href="#" id="gebruikBtn">Gebruik deze scores in Mijn Cirkel</a>
+    </div>
+  `;
+
+  document.getElementById("gebruikBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    let cirkelData = {};
+    try { cirkelData = JSON.parse(localStorage.getItem("circleMethode.mijnCirkel")) || {}; } catch (err) { cirkelData = {}; }
+    cirkelData.scores = scores;
+    localStorage.setItem("circleMethode.mijnCirkel", JSON.stringify(cirkelData));
+    localStorage.removeItem(STORAGE_KEY);
+    window.location.href = "snelzoeker.html?tab=mijncirkel";
+  });
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+}
+
+if (huidigBlok === vragenBlokken.length - 1 && antwoorden[huidigBlok].filter(r => r !== undefined).length === 6 && antwoorden.every(b => b.filter(r=>r!==undefined).length === 6)) {
+  toonResultaat();
+} else {
+  renderBlok();
+}
+</script>
+</body>
+</html>
