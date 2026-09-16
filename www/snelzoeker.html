@@ -161,6 +161,12 @@
 
   <section class="tab-panel" id="panel-interactie">
     <div class="card">
+      <h3 style="margin:0 0 4px;font-family:Georgia,'Iowan Old Style','Palatino Linotype',Palatino,serif;">Snel herkennen: welke stijl zie je?</h3>
+      <p style="margin:0 0 14px;color:var(--ink-soft);font-size:0.9rem;">Let op het sleutelwoord, de typerende vragen die iemand stelt, en het non-verbale gedrag — daaraan herken je een stijl vaak al snel.</p>
+      <div id="herkenGrid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;"></div>
+    </div>
+
+    <div class="card">
       <div class="row">
         <div class="field">
           <label for="stijlA">Stijl A</label>
@@ -603,6 +609,24 @@ const stijlA = document.getElementById("stijlA");
 const stijlB = document.getElementById("stijlB");
 fillSelect(stijlA); fillSelect(stijlB);
 stijlA.value = "c1"; stijlB.value = "c2";
+
+// --- Snel herkennen: sleutelwoord, typerende vragen en non-verbaal gedrag per stijl ---
+(function() {
+  const grid = document.getElementById("herkenGrid");
+  codes.forEach(c => {
+    const p = styleProfiles[c];
+    const kleur = styleColors[c] || "var(--accent)";
+    const div = document.createElement("div");
+    div.style.cssText = `background:#fff;border:1px solid var(--rule);border-left:4px solid ${kleur};border-radius:8px;padding:12px 14px;`;
+    div.innerHTML = `
+      <h4 style="margin:0 0 6px;color:${kleur};font-size:0.95rem;">${p.naam}</h4>
+      <p style="margin:0 0 8px;"><strong>${p.sleutelwoord}</strong></p>
+      <ul style="margin:0 0 8px;padding-left:1.1em;font-size:0.85rem;">${p.vragen.map(v => `<li>${v}</li>`).join("")}</ul>
+      <p style="margin:0;font-size:0.78rem;color:var(--ink-soft);font-style:italic;">${p.nonverbaal}</p>
+    `;
+    grid.appendChild(div);
+  });
+})();
 
 // --- Sectie 1: De zes stijlen ---
 const stijlProfiel = document.getElementById("stijlProfiel");
