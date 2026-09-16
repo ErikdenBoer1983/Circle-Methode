@@ -368,7 +368,7 @@ document.querySelectorAll(".tab-btn").forEach(b => {
   codes.forEach(c => {
     const veld = document.createElement("div");
     veld.className = "score-veld";
-    veld.innerHTML = `<label>${korteStijlNaam(c)}</label><input type="number" min="12" max="72" inputmode="numeric" data-code="${c}">`;
+    veld.innerHTML = `<label>${oriNames[c]}</label><input type="number" min="12" max="72" inputmode="numeric" data-code="${c}">`;
     scoreGrid.appendChild(veld);
     const input = veld.querySelector("input");
     input.value = scores[c] || "";

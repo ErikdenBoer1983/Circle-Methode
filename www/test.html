@@ -72,6 +72,7 @@
   <div id="resultaatCard"></div>
 </div>
 
+<script src="stylesData.js"></script>
 <script>
 const vragenBlokken = [
   { header: "Ik vind in mijzelf gewoon dat ik:", items: [
@@ -314,23 +315,45 @@ function toonResultaat() {
     </div>`;
   });
 
+  const hoofd = styleProfiles[gerangschikt[0]];
+  const hulp = styleProfiles[gerangschikt[1]];
+
   document.getElementById("resultaatCard").innerHTML = `
     <div class="card resultaat">
       <h2>Jouw uitkomst</h2>
       <p class="instructie">Dit zijn je scores op basis van de vragenlijst (totaal ${codes.reduce((s,c)=>s+scores[c],0)} van 252).</p>
       ${rijenHtml}
-      <a class="cta" href="#" id="gebruikBtn">Gebruik deze scores in Mijn Cirkel</a>
+      <a class="cta" href="#" id="gebruikBtn">Gebruik alleen deze scores in Mijn Cirkel</a>
+      <p class="instructie" style="margin-top:20px;">Wil je op basis van je hoofd- en hulpstijl (${korteStijlNaam(gerangschikt[0])} &amp; ${korteStijlNaam(gerangschikt[1])}) ook meteen kernwoorden invullen voor je sterkten, valkuilen, leerpunten en afkeuren?</p>
+      <a class="cta" href="#" id="gebruikMetTekstBtn" style="background:var(--accent2);">Ja, vul ook kernwoorden in</a>
     </div>
   `;
 
-  document.getElementById("gebruikBtn").addEventListener("click", (e) => {
-    e.preventDefault();
+  function korteStijlNaam(c) { return (oriNames[c] || "").replace(/^C\d\s/, ""); }
+
+  function opslaanEnDoorsturen(metKernwoorden) {
     let cirkelData = {};
     try { cirkelData = JSON.parse(localStorage.getItem("circleMethode.mijnCirkel")) || {}; } catch (err) { cirkelData = {}; }
     cirkelData.scores = scores;
+    if (metKernwoorden) {
+      cirkelData.sterkten = `${hoofd.sterkteKort}, ${hulp.sterkteKort}`;
+      cirkelData.valkuilen = `${hoofd.valkuilKort}, ${hulp.valkuilKort}`;
+      cirkelData.leerpunten = `${hoofd.leerpuntKort}, ${hulp.leerpuntKort}`;
+      cirkelData.afkeuren = `${hoofd.afkeurKort}, ${hulp.afkeurKort}`;
+    }
     localStorage.setItem("circleMethode.mijnCirkel", JSON.stringify(cirkelData));
     localStorage.removeItem(STORAGE_KEY);
     window.location.href = "snelzoeker.html?tab=mijncirkel";
+  }
+
+  document.getElementById("gebruikMetTekstBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    opslaanEnDoorsturen(true);
+  });
+
+  document.getElementById("gebruikBtn").addEventListener("click", (e) => {
+    e.preventDefault();
+    opslaanEnDoorsturen(false);
   });
   window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
 }
