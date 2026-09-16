@@ -19,7 +19,7 @@
     --textw: 740px;
   }
   * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: auto; }
   html, body {
     overflow-x: hidden;
     max-width: 100%;
@@ -206,6 +206,16 @@
     body { background: #fff; }
   }
   #leesvoortgang { position: fixed; top: 0; left: 0; height: 4px; width: 0%; background: var(--accent); z-index: 300; transition: width 0.1s linear; }
+  .inhoudsopgave { max-width: var(--textw); margin: 1.6em auto; background: #fff; border: 1px solid var(--rule); border-radius: 10px; padding: 6px 18px; box-shadow: 0 3px 12px rgba(43,38,32,0.06); }
+  .inhoudsopgave ul { list-style: none; margin: 0; padding: 0; }
+  .inhoudsopgave li { border-bottom: 1px solid var(--rule); }
+  .inhoudsopgave li:last-child { border-bottom: none; }
+  .inhoudsopgave a { display: flex; align-items: baseline; gap: 10px; padding: 10px 4px; text-decoration: none; color: var(--ink); font-family: "Trebuchet MS", "Segoe UI", sans-serif; font-size: 0.92rem; }
+  .inhoudsopgave a:hover, .inhoudsopgave a:active { color: var(--accent); }
+  .inhoudsopgave li.toc-nolink { display: flex; align-items: baseline; gap: 10px; padding: 10px 4px; font-family: "Trebuchet MS", "Segoe UI", sans-serif; font-size: 0.92rem; color: var(--ink-soft); }
+  .toc-nr { flex: 0 0 auto; color: var(--accent); font-weight: 700; min-width: 1.6em; }
+  .toc-titel { flex: 1; }
+  .toc-pag { flex: 0 0 auto; color: var(--ink-soft); font-size: 0.85rem; }
 </style>
 </head>
 <body>
@@ -232,13 +242,58 @@ met wat in ons ligt.</p>
 <p>En wanneer we wat in ons ligt naar buiten brengen, gebeuren er
 wonderen."</p>
 <p>Henry David Thoreau (1817-1862), Amerikaans schrijver</p>
-<p><img
-src="media/methode-sept/image2.png"
-style="width:7.03889in;height:10.30903in" /></p>
-<p><img
-src="media/methode-sept/image3.png"
-style="width:7.26736in;height:1.82708in" /></p>
-<p><strong>1 De Circle Oriëntaties Methode® In Vogelvlucht</strong></p>
+<nav class="inhoudsopgave"><ul>
+<li><a href="#hfst-1"><span class="toc-nr">1</span><span class="toc-titel">De Circle Oriëntaties Methode® in vogelvlucht</span><span class="toc-pag">4-6</span></a></li>
+<li><a href="#hfst-2"><span class="toc-nr">2</span><span class="toc-titel">Inleiding</span><span class="toc-pag">6-10</span></a></li>
+<li><a href="#hfst-3"><span class="toc-nr">3</span><span class="toc-titel">Ontstaan en achtergrond van de Circle Oriëntaties Methode®</span><span class="toc-pag">11-12</span></a></li>
+<li><a href="#hfst-4"><span class="toc-nr">4</span><span class="toc-titel">Communicatie</span><span class="toc-pag">12-13</span></a></li>
+<li><a href="#hfst-5"><span class="toc-nr">5</span><span class="toc-titel">Levenslang leren</span><span class="toc-pag">14</span></a></li>
+<li><a href="#hfst-6"><span class="toc-nr">6</span><span class="toc-titel">Valideren, Positioneren en Matchen</span><span class="toc-pag">14</span></a></li>
+<li><a href="#hfst-7"><span class="toc-nr">7</span><span class="toc-titel">De Circle Oriëntaties Methode® is een niet normatief systeem</span><span class="toc-pag">14</span></a></li>
+<li><a href="#hfst-8"><span class="toc-nr">8</span><span class="toc-titel">Onze cirkel van gewoontes</span><span class="toc-pag">15</span></a></li>
+<li><a href="#hfst-9"><span class="toc-nr">9</span><span class="toc-titel">Ons eigen gedrag is normaal</span><span class="toc-pag">15</span></a></li>
+<li><a href="#hfst-10"><span class="toc-nr">10</span><span class="toc-titel">Aanvoelen of aanvullen?</span><span class="toc-pag">15</span></a></li>
+<li><a href="#hfst-11"><span class="toc-nr">11</span><span class="toc-titel">Gedrag heeft een enorme impact</span><span class="toc-pag">15-16</span></a></li>
+<li><a href="#hfst-12"><span class="toc-nr">12</span><span class="toc-titel">Toepassingen van de Circle Oriëntaties Methode® (instroom-doorstroom-uitstroom)</span><span class="toc-pag">16-18</span></a></li>
+<li><a href="#hfst-13"><span class="toc-nr">13</span><span class="toc-titel">De methode als aanvulling op andere gevolgde trainingen</span><span class="toc-pag">18</span></a></li>
+<li><a href="#hfst-14"><span class="toc-nr">14</span><span class="toc-titel">Wat kan de Circle Oriëntaties Methode® voor jou betekenen</span><span class="toc-pag">18</span></a></li>
+<li><a href="#hfst-15"><span class="toc-nr">15</span><span class="toc-titel">Doel van de methode</span><span class="toc-pag">19</span></a></li>
+<li><a href="#hfst-16"><span class="toc-nr">16</span><span class="toc-titel">De eerste cirkel: &#x27;de ik Cirkel&#x27;. Uitleg van jouw scores!</span><span class="toc-pag">19-21</span></a></li>
+<li><a href="#hfst-17"><span class="toc-nr">17</span><span class="toc-titel">Waar komen de 6 Circle Oriëntaties uit voort?</span><span class="toc-pag">21-22</span></a></li>
+<li><a href="#hfst-18"><span class="toc-nr">18</span><span class="toc-titel">Welke 6 Circle Oriëntaties zijn er?</span><span class="toc-pag">22-23</span></a></li>
+<li><a href="#hfst-19"><span class="toc-nr">19</span><span class="toc-titel">De 6 oriëntaties en hun non-verbale gedrag</span><span class="toc-pag">23-25</span></a></li>
+<li><a href="#hfst-20"><span class="toc-nr">20</span><span class="toc-titel">Waaraan herken je de 6 Circle Oriëntaties?</span><span class="toc-pag">25</span></a></li>
+<li><a href="#hfst-21"><span class="toc-nr">21</span><span class="toc-titel">De 6 Oriëntaties nader toegelicht (C1 t/m C6)</span><span class="toc-pag">25-40</span></a></li>
+<li><a href="#hfst-22"><span class="toc-nr">22</span><span class="toc-titel">De methode zegt niets van het &#x27;waarom&#x27; en het &#x27;wat&#x27; en veel over het &#x27;hoe&#x27;!</span><span class="toc-pag">41-42</span></a></li>
+<li><a href="#hfst-23"><span class="toc-nr">23</span><span class="toc-titel">Het beter beheersen van het excessief gebruik: het doorslaan, het terechtkomen in onze valkuilen</span><span class="toc-pag">42</span></a></li>
+<li><a href="#hfst-24"><span class="toc-nr">24</span><span class="toc-titel">Het herkennen van interne signalen</span><span class="toc-pag">42</span></a></li>
+<li><a href="#hfst-25"><span class="toc-nr">25</span><span class="toc-titel">Ga op zoek naar impulsen en situaties die dat excessief gebruik oproepen</span><span class="toc-pag">43</span></a></li>
+<li><a href="#hfst-26"><span class="toc-nr">26</span><span class="toc-titel">Hoe herken je externe signalen?</span><span class="toc-pag">43</span></a></li>
+<li><a href="#vraag-hulp-aan-anderen"><span class="toc-nr">27</span><span class="toc-titel">Vraag hulp aan anderen</span><span class="toc-pag">44</span></a></li>
+<li><a href="#hfst-28"><span class="toc-nr">28</span><span class="toc-titel">De koffer met ons gedrag</span><span class="toc-pag">44</span></a></li>
+<li><a href="#hfst-29"><span class="toc-nr">29</span><span class="toc-titel">De 6 Circle Oriëntaties schematisch weergegeven</span><span class="toc-pag">45</span></a></li>
+<li><a href="#hfst-30"><span class="toc-nr">30</span><span class="toc-titel">Het gaat erom jouw persoonlijke plan te maken!</span><span class="toc-pag">45-46</span></a></li>
+<li><a href="#hfst-31"><span class="toc-nr">31</span><span class="toc-titel">De tweede cirkel: De ‘ander over ik’, vanuit de andere cirkel</span><span class="toc-pag">46-52</span></a></li>
+<li><a href="#hfst-32"><span class="toc-nr">32</span><span class="toc-titel">De derde cirkel: De ‘ander en ik’, de interactie tussen twee of meer cirkels</span><span class="toc-pag">52</span></a></li>
+<li><a href="#hfst-33"><span class="toc-nr">33</span><span class="toc-titel">Hoe verloopt de interactie tussen de oriëntaties?</span><span class="toc-pag">53-59</span></a></li>
+<li><a href="#hfst-34"><span class="toc-nr">34</span><span class="toc-titel">Verschillende mensen kijken naar hetzelfde en doen dus verschillende waarnemingen</span><span class="toc-pag">60</span></a></li>
+<li><a href="#hfst-35"><span class="toc-nr">35</span><span class="toc-titel">Hoe andermans excessief gedrag te benaderen</span><span class="toc-pag">60-62</span></a></li>
+<li><a href="#hfst-36"><span class="toc-nr">36</span><span class="toc-titel">Het kan soms moeilijk zijn andermans excessief gedrag te herkennen</span><span class="toc-pag">62</span></a></li>
+<li><a href="#hfst-37"><span class="toc-nr">37</span><span class="toc-titel">De interactie tussen de diverse oriëntaties in groepen</span><span class="toc-pag">62-63</span></a></li>
+<li><a href="#hfst-38"><span class="toc-nr">38</span><span class="toc-titel">Van een groeps- of organisatiescore tot een ontwikkelingsplan</span><span class="toc-pag">63</span></a></li>
+<li><a href="#hfst-39"><span class="toc-nr">39</span><span class="toc-titel">Nawoord</span><span class="toc-pag">64</span></a></li>
+<li><a href="#hfst-40"><span class="toc-nr">40</span><span class="toc-titel">Bijlagen: Thema&#x27;s uitgewerkt in de vorm van een gereedschapskist!</span><span class="toc-pag">65</span></a></li>
+<li><a href="#hfst-41"><span class="toc-nr">41</span><span class="toc-titel">Thema Basis</span><span class="toc-pag">66</span></a></li>
+<li><a href="#hfst-42"><span class="toc-nr">42</span><span class="toc-titel">Thema Hoe leren we?</span><span class="toc-pag">67-77</span></a></li>
+<li><a href="#hfst-43"><span class="toc-nr">43</span><span class="toc-titel">Thema Communicatie en Gespreksvoering</span><span class="toc-pag">78-85</span></a></li>
+<li><a href="#hfst-44"><span class="toc-nr">44</span><span class="toc-titel">Thema Onderhandelen</span><span class="toc-pag">86-88</span></a></li>
+<li><a href="#hfst-45"><span class="toc-nr">45</span><span class="toc-titel">Thema Samenwerken</span><span class="toc-pag">89-104</span></a></li>
+<li><a href="#hfst-46"><span class="toc-nr">46</span><span class="toc-titel">Thema Feedback (op inhoud en gedrag)</span><span class="toc-pag">105-110</span></a></li>
+<li><a href="#hfst-47"><span class="toc-nr">47</span><span class="toc-titel">Thema Leidinggeven en Coachen (incl. managers- en baas-rol)</span><span class="toc-pag">111-121</span></a></li>
+<li><a href="#hfst-48"><span class="toc-nr">48</span><span class="toc-titel">Thema Omgaan met Tijd</span><span class="toc-pag">121-124</span></a></li>
+<li><a href="#hfst-49"><span class="toc-nr">49</span><span class="toc-titel">Thema Omgaan met Veranderingen</span><span class="toc-pag">125-127</span></a></li>
+</ul></nav>
+<p id="hfst-1"><strong>1 De Circle Oriëntaties Methode® In Vogelvlucht</strong></p>
 <p>De Circle Oriëntaties Methode® brengt jouw persoonlijke sterkten en
 valkuilen, leerpunten en afkeuren in beeld, met als uiteindelijk doel
 het vergroten van jouw persoonlijke effectiviteit. Wat voor een individu
@@ -346,7 +401,7 @@ ik verschillende termen voor het begrip gedragsvoorkeuren:</p>
 <p>- voorkeuren : dit zijn gedragsvoorkeuren</p>
 <p>- oriëntaties : gedragsvoorkeuren volgens de Circle Oriëntaties
 Methode®</p>
-<p><strong>2 Inleiding</strong></p>
+<p id="hfst-2"><strong>2 Inleiding</strong></p>
 <p>Ergens rond 1985 introduceerde het toenmalige ‘huistrainingsbureau’
 MATCH van Kimberly-Clark bij ons destijds het LIFO Oriëntations model
 van de Amerikanen Katcher en Atkins. Dit model gaat verder waar het boek
@@ -605,7 +660,7 @@ lastig is, ook al omdat je <u>per blokje van 6 stellingen</u> slechts 1
 x een 1, 1x een 2, 1 x een 3 etc. mag aangeven.</p>
 <p>Ik leg je later uit wat dit voor jou kan betekenen in de diverse
 rollen die je hebt!</p>
-<p><strong>3 Ontstaan en achtergrond van de Circle Oriëntaties
+<p id="hfst-3"><strong>3 Ontstaan en achtergrond van de Circle Oriëntaties
 Methode®.</strong></p>
 <p>De methode is ontstaan uit theorieën en werkwijzen van:</p>
 <p>. dr. Erich Fromm (1900-1980)</p>
@@ -709,7 +764,7 @@ getoetst aan de praktijk van de vele deelnemers gedurende de afgelopen
 voortkomen uit hun (re)acties en praktijk.</p>
 <p>Vandaar dat het tijd werd voor een update. Het resultaat is deze
 jubileumuitgave na 25 jaar werken met de methode.</p>
-<p><strong>4 Communicatie</strong></p>
+<p id="hfst-4"><strong>4 Communicatie</strong></p>
 <p>Het misverstand vergadert altijd op de rand van de tafel mee. Alsof
 het een onzichtbare deelnemer is. En kan zo negatief bijdragen tot
 lichte irritatie, tot tijdverlies, tot verlies van geld, tot frustratie,
@@ -799,7 +854,7 @@ voeren of standpunten willen toelichten of verdedigen is dat nauwelijks
 mogelijk omdat we het belangrijkste en grootste deel van de
 communicatie, het non-verbale, missen, ook al proberen we dat met
 bijvoorbeeld emoticons te compenseren.</p>
-<p><strong>5 Levenslang leren</strong></p>
+<p id="hfst-5"><strong>5 Levenslang leren</strong></p>
 <p>Organisaties en individuen beseffen steeds meer de noodzaak van het
 continue leerproces. In deze tijd waarin technologische voorsprong op
 hun concurrenten steeds korter duurt en producten en diensten steeds
@@ -810,7 +865,7 @@ verschil!</p>
 <p>En dan is de vraag gerechtvaardigd: hoe kan een organisatie en dus
 haar teams continue leren als de individuele medewerker, op zijn beurt,
 ophoudt te leren?</p>
-<p><strong>6 Valideren, Positioneren en Matchen</strong></p>
+<p id="hfst-6"><strong>6 Valideren, Positioneren en Matchen</strong></p>
 <p>Het gaat erom dat de organisatie precies weet wat voor een
 <strong>Menselijk Kapitaal</strong> zij in huis heeft, dat zij dit op de
 juiste waarde inschat (valideren), vervolgens de juiste persoon op de
@@ -842,7 +897,7 @@ of ........dichtgehouden.</p>
 kwestie van willen of is er eerder sprake van kiezen, kennen, kunnen,
 durven of mogen? Ik kom op de betekenis achter deze woorden uiteraard
 terug.</p>
-<p><strong>7 De Circle Oriëntaties Methode® is een niet-normatief
+<p id="hfst-7"><strong>7 De Circle Oriëntaties Methode® is een niet-normatief
 systeem!</strong></p>
 <p>Ik schreef er al over. Een van de belangrijkste motieven om met deze
 methode te werken is de kracht om gedrag op een niet normatieve wijze te
@@ -860,7 +915,7 @@ effectiever, met jouw eigen gedrag om te gaan! Het gedrag van de ander
 heb je immers niet in de hand, jouw eigen gedrag in hoge mate wel!
 Onderschat daarbij overigens niet de invloed die jouw gedrag op anderen
 heeft.</p>
-<p><strong>8 Onze cirkel van gewoontes.</strong></p>
+<p id="hfst-8"><strong>8 Onze cirkel van gewoontes.</strong></p>
 <p>Maar wat betekent dit als je niet ervaart dat iets beter moet worden?
 Komt dit dan doordat je in jouw cirkel van gewoonte zit?</p>
 <p>Ik geef het volgende voorbeeld: je zit s ’avonds met jouw partner op
@@ -879,7 +934,7 @@ of dat dit morgenochtend ook kan. Overleggen met je partner kan zeker
 ook geen kwaad. Je maakt een korte aantekening als herinnering voor
 morgen en jullie gaan verder waar je mee bezig was. ‘Relatiemoment’
 gered?</p>
-<p><strong>9 Ons eigen gedrag is normaal.</strong></p>
+<p id="hfst-9"><strong>9 Ons eigen gedrag is normaal.</strong></p>
 <p>Wij mensen hebben de neiging ons eigen gedrag als ‘normaal’ te
 beschouwen en dat van de ander soms als niet effectief, niet ter zake
 doende of vreemd.</p>
@@ -890,7 +945,7 @@ vanuit haar eigen voorkeursgedrag.</p>
 Van Dale) en legt zo als het ware haar norm op aan Frans en probeert hem
 zo te motiveren zijn gedrag te veranderen zodat dit meer aansluit bij
 dat van haar.</p>
-<p><strong>10 Aanvoelen of aanvullen?</strong></p>
+<p id="hfst-10"><strong>10 Aanvoelen of aanvullen?</strong></p>
 <p>Daarnaast hebben we de neiging om ons prettig te voelen in het
 gezelschap der “gelijken”, hoe valt het anders te verklaren dat we
 geneigd zijn te kiezen voor mensen die gedrag vertonen dat voor onszelf
@@ -903,7 +958,7 @@ geweest dan “aanvoelen”!</p>
 leren van die persoon die zo geheel anders is dan wijzelf, de vraag
 blijft echter: passen wij dit beginsel toe? Of kiezen we (on)bewust voor
 de veilige en bekende weg….</p>
-<p><strong>11 Gedrag heeft een enorme impact.</strong></p>
+<p id="hfst-11"><strong>11 Gedrag heeft een enorme impact.</strong></p>
 <p>De ander zijn gedrag veranderen is dus niet aan de orde. Aan de
 andere kant, de impact van ons gedrag tijdens onze omgang met anderen
 heeft wel een enorme invloed op het uiteindelijke resultaat van deze
@@ -948,7 +1003,7 @@ gerelateerde klachten in 2026 oploopt tot ongeveer 30% van de
 beroepsbevolking in Nederland. Eind 2025 rapporteerde het CBS dat bijna
 1 op de 6 werknemers (bijna 16%) hun werk als zeer stressvol ervaart.
 Een belangrijke voedingsbodem voor dwangmatig werkgedrag.</p>
-<p><strong>12 Toepassingen van de Circle Oriëntaties
+<p id="hfst-12"><strong>12 Toepassingen van de Circle Oriëntaties
 Methode®.</strong></p>
 <p>De Circle Oriëntaties Methode® is ontworpen om je een beter inzicht
 in jouw eigen voorkeursgedrag te geven. Met zowel de positieve als de
@@ -1082,7 +1137,7 @@ taakkant, de processen, het ‘wat’ en ‘hoe’. Aan beide kanten van de
 weegschaal zal gewerkt moeten worden aan optimale resultaten!</p>
 <p>Zie daarvoor mijn maatwerk aanpak: het <em>integrale</em> Circle
 Concept.</p>
-<p><strong>13 De methode als aanvulling op andere trainingen die je al
+<p id="hfst-13"><strong>13 De methode als aanvulling op andere trainingen die je al
 hebt gevolgd.</strong></p>
 <p>Omdat de methode ingaat op de manier waarop ieder van ons omgaat met
 zijn voorkeursgedrag sluit deze goed aan bij de al door jou gevolgde
@@ -1101,7 +1156,7 @@ jouw eigen gedragsvoorkeurenprofiel, de manier waarop jij deze rollen
 invult concreet invullen. Zo krijg je als het ware een unieke en dus
 voor jou geschikte maatwerkaanpak rond dit thema!</p>
 <p>Zo heb ik alle thema’s uitgewerkt. Je komt ze nog tegen.</p>
-<p><strong>14 Wat kan de Circle Oriëntaties Methode® voor jou
+<p id="hfst-14"><strong>14 Wat kan de Circle Oriëntaties Methode® voor jou
 betekenen?</strong></p>
 <p>Door bewust met de methode te werken zal jouw zelfinzicht nog verder
 toenemen. Dit verbeter je zelfinzicht en is essentieel om te komen tot
@@ -1119,7 +1174,7 @@ afhankelijk zijn van ons vermogen tot samenwerken.</p>
 <p>De manier waarop jij jezelf als persoon neerzet heeft een enorme
 impact, iets waarvan jij je wellicht niet altijd bewust bent en/of
 (on)bewust naar handelt.</p>
-<p><strong>15 Doel van de methode.</strong></p>
+<p id="hfst-15"><strong>15 Doel van de methode.</strong></p>
 <p>Het in kaart brengen en ontwikkelen van jouw persoonlijke
 gedragsvoorkeuren, met daarin jouw:</p>
 <p><strong>Sterkten</strong> en <strong>Valkuilen</strong> /
@@ -1134,7 +1189,7 @@ draagt hij ook beter bij aan de team- en/of de organisatiedoelen.</p>
 <p>Bevindt hij zich in de rode gedeelten van zijn cirkel dan
 functioneert hij minder of, als hij zich langere periode in dit gedeelte
 bevindt, in het geheel niet!</p>
-<p><strong>16 De eerste cirkel: ‘de ik Cirkel’. We beginnen bij jouw
+<p id="hfst-16"><strong>16 De eerste cirkel: ‘de ik Cirkel’. We beginnen bij jouw
 voorkeursgedrag met de uitleg van jouw scores!</strong></p>
 <p>Je hebt zojuist of al eerder een Circle Oriëntaties Methode®
 invullijst over jezelf ingevuld.</p>
@@ -1243,7 +1298,7 @@ absoluut gegeven!</strong></p>
 <p>Zij sturen ‘slechts’ jouw zoekproces.</p>
 <p>Daarnaast zijn de genoemde sterkten, valkuilen, leerpunten en
 afkeuren algemene beschrijvingen die als leidraad kunnen bieden.</p>
-<p><strong>17 Waar komen de 6 Circle Oriëntaties uit voort?</strong></p>
+<p id="hfst-17"><strong>17 Waar komen de 6 Circle Oriëntaties uit voort?</strong></p>
 <p>Elk van de 6 Circle Oriëntaties zijn ontstaan door:</p>
 <ul>
 <li><p>aangeboren gaven</p></li>
@@ -1330,7 +1385,7 @@ thema’s als samenwerken, leidinggeven, omgaan met veranderingen, hoe
 leren we?</p>
 <p>Ook omgaan met tijd, met feedback geven en ontvangen, gespreksvoering
 komen aan bod.</p>
-<p><strong>18 Welke 6 Circle oriëntaties zijn er?</strong></p>
+<p id="hfst-18"><strong>18 Welke 6 Circle oriëntaties zijn er?</strong></p>
 <p>Het is als eerste belangrijk om ons te realiseren dat er
 <em>nooit</em> sprake is van slechts 1 oriëntatie in het gedrag van de
 mens. Er is altijd sprake van een combinatie van diverse oriëntaties,
@@ -1399,7 +1454,7 @@ desbetreffende oriëntatie tot doel. Daarmee zie je ook het verschil ten
 opzichte van de andere oriëntaties!</p>
 <p>Je gaat ontdekken dat het juist de mix van stijlen is die iemands
 gedrag vertegenwoordigt!</p>
-<p><strong>19 De 6 oriëntaties en hun non-verbale gedrag.</strong></p>
+<p id="hfst-19"><strong>19 De 6 oriëntaties en hun non-verbale gedrag.</strong></p>
 <p>Zoals je weet communiceren we op zowel verbale wijze (d.m.v. woorden)
 als op non-verbale wijze (d.m.v. onze lichaamstaal). De verhouding van
 respectievelijk ca. 30% verbaal en ca. 70 % non-verbaal geeft het belang
@@ -1442,7 +1497,7 @@ gedrag en in dat van anderen.</p>
 <p><strong>Een andere manier is om in de App op de knop Snelzoeker te
 drukken. Je vindt hier de 6 oriëntaties en hun interactie patronen. Ook
 de themakaartjes kun je daar direct opzoeken.</strong></p>
-<p><strong>20 Waaraan herken je de 6 Circle oriëntaties?</strong></p>
+<p id="hfst-20"><strong>20 Waaraan herken je de 6 Circle oriëntaties?</strong></p>
 <p>(Zie ook het algemene Basis themakaartje met de grijze band! op pag.
 66!)</p>
 <p>Algemene beschrijving van de Sterkten en Valkuilen en daarnaast de
@@ -1464,7 +1519,7 @@ wisselwerking met jouw omgeving en anderen?</p>
 naar de leerpunten en afkeuren te gaan kijken om deze, zoals aangegeven,
 in een persoonlijk ontwikkelingsplan te stoppen met als doel een
 effectiever en efficiënter optreden!</p>
-<p><strong>21 De 6 oriëntaties nader toegelicht.</strong> (C1 t/m
+<p id="hfst-21"><strong>21 De 6 oriëntaties nader toegelicht.</strong> (C1 t/m
 C6)</p>
 <p><strong>Lezerswaarschuwing:</strong></p>
 <p>Omdat ik de oriëntaties in de beschrijvingen sterk neerzet om ze
@@ -2448,7 +2503,7 @@ zijn beste pak bij de ingang om het hoge bezoek te verwelkomen. Achter
 hem stond iemand met 2 stropdassen als teken van een stil verzet tegen
 zoveel opsmuk. Hij bleek hoog gescoord hebben op de Overeenkomende
 oriëntatie.</p>
-<p><strong>22 De methode zegt niets van het ‘waarom’ en het ‘wat’ en
+<p id="hfst-22"><strong>22 De methode zegt niets van het ‘waarom’ en het ‘wat’ en
 veel over het ’hoe’!</strong></p>
 <p>Daarnaast: herinner jij je het volgende nog? Circle Oriëntaties
 Methode® is een niet normatieve manier om naar ons gedrag te kijken!</p>
@@ -2519,7 +2574,7 @@ jouw conclusies. Bespreek ze eens met jouw collega’s.</p>
 <p><img
 src="media/methode-sept/image11.png"
 style="width:6.63125in;height:2.64306in" /></p>
-<p><strong>23 Het beter beheersen van het excessief gebruik van de
+<p id="hfst-23"><strong>23 Het beter beheersen van het excessief gebruik van de
 oriëntaties, het doorslaan, het terechtkomen in onze
 valkuilen.</strong></p>
 <p>Dit is een goed moment om het fenomeen van het doorslaan naar de
@@ -2530,8 +2585,8 @@ doorslaan bij jezelf, wat kunnen eventuele oorzaken zijn? Daar heb ik
 nog geen antwoord op gegeven.</p>
 <p>Ik ga daar nu verder op in:</p>
 <ul>
-<li><p>Het herkennen van interne signalen</p></li>
-<li><p>Ga op zoek naar impulsen en situaties die dat excessief gebruik
+<li id="hfst-24"><p>Het herkennen van interne signalen</p></li>
+<li id="hfst-25"><p>Ga op zoek naar impulsen en situaties die dat excessief gebruik
 oproepen</p></li>
 <li><p>Hoe herken je externe signalen?</p></li>
 <li><p>Vraag hulp van anderen</p></li>
@@ -2599,7 +2654,7 @@ kwantitatief door teveel te doen</p></li>
 oorzaak kunnen zijn. Maak hier een aantekening van en nog beter een plan
 hoe hier beter mee om te gaan. Neem de oorzaken weg, vraag hulp bij het
 weghalen hiervan als het je niet lukt!</p>
-<p><strong>26 Hoe herken je externe signalen?</strong></p>
+<p id="hfst-26"><strong>26 Hoe herken je externe signalen?</strong></p>
 <p>Leer externe signalen buiten jezelf te herkennen die aangeven wanneer
 er sprake is van jouw doorslaan.</p>
 <p>Dit is erg belangrijk omdat, zoals aangegeven niet iedereen die
@@ -2648,7 +2703,7 @@ gebruiken.</p>
 <p>Wees elkaars trainer. Geef elkaar professionele feedback. Sta dit
 elkaar toe, je zult er beiden veel van leren! Let daarbij op het willen,
 kiezen, kennen, kunnen, durven en mogen .</p>
-<p><strong>28 De koffer met ons gedrag.</strong></p>
+<p id="hfst-28"><strong>28 De koffer met ons gedrag.</strong></p>
 <p>Zoals al eerder aangegeven beschikken wij over een combinatie, een
 samenhang van bovengenoemde oriëntaties. Het is juist deze combinatie
 die ons mensen zo uniek maakt.</p>
@@ -2673,12 +2728,12 @@ kunnen zijn en daarnaast ook nog minder frustraties bij onszelf en/of de
 ander zouden oproepen!</p>
 <p>Mijn advies: pak eens een andere map en gebruik die. Vaak onwennig
 maar je leert er beslist van!</p>
-<p><strong>29 De 6 Circle oriëntaties schematisch
+<p id="hfst-29"><strong>29 De 6 Circle oriëntaties schematisch
 weergegeven:</strong></p>
 <p><img
 src="media/methode-sept/image12.png"
 style="width:5.18472in;height:5.10694in" /></p>
-<p><strong>30 Het gaat erom jouw persoonlijke plan te
+<p id="hfst-30"><strong>30 Het gaat erom jouw persoonlijke plan te
 maken!</strong></p>
 <p>Bij het thema Hoe leren we? vanaf pagina 67-77, kom ik daar op
 terug.</p>
@@ -2738,7 +2793,7 @@ gedragsrepertoire (neem eens een andere map uit jouw koffer!).</p>
 <p>Door zo op alle 4 cirkelonderdelen jouw eigen individuele sterkten,
 valkuilen, leerpunten én afkeuren te beschrijven heb je de eerste aanzet
 gegeven tot jouw individuele Circle Persoonlijke Ontwikkeling Plan!</p>
-<p><strong>31 De tweede cirkel: De “ander over ik”, vanuit de andere
+<p id="hfst-31"><strong>31 De tweede cirkel: De “ander over ik”, vanuit de andere
 cirkel. Hoe een ander tegen onze oriëntatie aankijkt.</strong></p>
 <p>Een ander kijkt naar ons gedrag door “zijn” bril, ervaring,
 referentiekader en “zijn” oriëntaties. Ook hij beschouwt zijn eigen
@@ -3094,7 +3149,7 @@ jij:</strong></p>
 opdringen</p>
 <p>Overeenkomend verplaats je teveel in andermans gevoelens in plaats in
 die van mij</p>
-<p><strong>32 De derde cirkel: De “ander en ik”, de interactie tussen
+<p id="hfst-32"><strong>32 De derde cirkel: De “ander en ik”, de interactie tussen
 twee of meer cirkels.</strong></p>
 <p>Nu je een beter beeld hebt gekregen hoe de ander tegen jouw cirkel
 aankijkt gaan we bewuster kijken naar de manier waarop beide of meer
@@ -3112,7 +3167,7 @@ worden!</p>
 <p><strong>Hoe ga je met de diverse oriëntaties om?</strong></p>
 <p>We geven je in het volgende schema een kort overzicht van de manier
 waarop je het best kunt omgaan met de 6 verschillende oriëntaties.</p>
-<p><strong>33 Hoe verloopt de interactie tussen de diverse
+<p id="hfst-33"><strong>33 Hoe verloopt de interactie tussen de diverse
 oriëntaties?</strong></p>
 <p>Ik zal de diverse interactiepatronen tussen de 6 oriëntaties de revue
 laten passeren. Laten we ons wel realiseren dat het hier gaat om een
@@ -3671,7 +3726,7 @@ dit te doen zelf rustig bleef en daarnaast ook mijn inbreng kon
 geven.</p>
 <p>Ook zijn partner werd door haar gerichte vragen te stellen meer
 betrokken in onze gesprekken.</p>
-<p><strong>34 Verschillende mensen kijken naar hetzelfde en doen dus
+<p id="hfst-34"><strong>34 Verschillende mensen kijken naar hetzelfde en doen dus
 verschillende waarnemingen.</strong></p>
 <p>Je hebt gemerkt dat elkaar wel of niet begrijpen mede komt door de
 verschillende gedragsvoorkeuren: de manier waarop, hoe de oriëntaties
@@ -3884,7 +3939,7 @@ weinig realiseerde dat er ook andere cirkels bestaan die dus weer vanuit
 hun cirkel tegen mij aankijken”.</p>
 <p>Door ons dit te realiseren snappen we meer over
 <strong>beide</strong> cirkels!</p>
-<p><strong>35 Hoe andermans excessief gedrag te benaderen</strong></p>
+<p id="hfst-35"><strong>35 Hoe andermans excessief gedrag te benaderen</strong></p>
 <p>In deel 1 de “Ik”, de eigen cirkel, heb ik al het excessieve gebruik
 van de eigen oriëntatie beschreven. Ook heb ik aangegeven dat je
 natuurlijk ook dit doorslaan van andermans gedrag ervaart. Maar hoe ga
@@ -3981,7 +4036,7 @@ zijn van jouw respect of jouw begrip dat hij graag de ander wil helpen
 initiatief naar zich toe trekken zo snel mogelijk aangeven dat je zijn
 drang naar resultaten waardeert of jouw begrip dat hij graag bereid is
 zijn schouders eronder te zetten (zijn sterkten!).</p>
-<p><strong>36 Het kan soms moeilijk zijn andermans excessief gedrag te
+<p id="hfst-36"><strong>36 Het kan soms moeilijk zijn andermans excessief gedrag te
 herkennen.</strong></p>
 <p>Over ‘t algemeen zal het niet moeilijk zijn het excessieve gebruik
 van de oriëntatie te herkennen. In sommige gevallen echter openbaren ze
@@ -4023,7 +4078,7 @@ Overeenkomende oriëntatie op zijn beurt blijft de Ondernemende
 oriëntatie zijn manier van optreden kwalijk nemen. Over wat voor een
 impact dit heeft op de rest van de betrokkenen (zij zijn immers
 deelgenoot geworden) laat ik hier nog buiten beschouwing!</p>
-<p><strong>37 De interactie tussen de diverse oriëntaties in
+<p id="hfst-37"><strong>37 De interactie tussen de diverse oriëntaties in
 groepen.</strong></p>
 <p>In grote lijnen kunnen we stellen dat wat voor individuen geldt ook
 op groepen, teams of organisaties van toepassing is. Ook hier speelt
@@ -4051,7 +4106,7 @@ treft de opdrachtgever vaak medewerkers die hun werk zo goed mogelijk
 willen doen (dit is hun sterkte!). Met als mogelijke valkuil: de klant
 meer leveren dan deze betaalt. En dus betalen ze dat zelf, als ze niet
 oppassen…….</p>
-<p><strong>38 Van een groeps- of organisatie-score tot een groeps- en/of
+<p id="hfst-38"><strong>38 Van een groeps- of organisatie-score tot een groeps- en/of
 organisatieprofiel en daaropvolgend naar een groeps- of organisatie
 ontwikkelingsplan.</strong></p>
 <p>Als iedereen in een team of in een organisatie zijn inbreng heeft
@@ -4091,7 +4146,7 @@ voorbereiding t/m evaluatie)</p></li>
 <p>Denk eens aan deze definitie van Teamwork:</p>
 <p>“Wanneer ik door jouw ogen zou kunnen kijken en jij door de mijne
 ontdekken we samen iets wat we alleen niet gezien zouden hebben”</p>
-<p><strong>39 Nawoord.</strong></p>
+<p id="hfst-39"><strong>39 Nawoord.</strong></p>
 <p>Met de Circle Oriëntaties Methode® wil ik je een methode aanreiken
 die je veel stof tot nadenken kan geven. Ze is niet panklaar, je zult
 het in jouw eigen plan moeten omzetten wil je er resultaten mee kunnen
@@ -4142,7 +4197,7 @@ van jouw doelen, zowel privé als zakelijk!</p>
 <p>Ruud van Hussen</p>
 <p>Mensen maken het verschil!</p>
 <p><strong>Haal het beste uit jullie Menselijk Kapitaal!</strong></p>
-<p><strong>40 Bijlagen</strong></p>
+<p id="hfst-40"><strong>40 Bijlagen</strong></p>
 <p><strong>Thema’s uitgewerkt in de vorm van een
 gereedschapskist!</strong></p>
 <p><img
@@ -4184,7 +4239,7 @@ voorafgaand aan een actie, als het ware een voorspelling kunt doen hoe
 deze actie zal verlopen en dus kun je deze inzichten, naast de
 inhoudelijke aspecten van de actie, meenemen in jouw voorbereiding!
 Voorkomen is beter dan genezen.</p>
-<p><strong>41 Ik start met het al besproken Basis
+<p id="hfst-41"><strong>41 Ik start met het al besproken Basis
 Themakaartje.</strong></p>
 <p>Dit is een algemene en beknopte beschrijving van de 6
 oriëntaties.</p>
@@ -4199,7 +4254,7 @@ omdat het een voorspelling is kun je deze tijdens de actie toetsen en
 dus ook onderweg bijstellen.</p>
 <p>Dit vraagt enige stijlflexibiliteit van je maar met wat oefening gaat
 je dit zeker lukken.</p>
-<p><img
+<p id="hfst-42"><img
 src="media/methode-sept/image15.png"
 style="width:1.69653in;height:1.20417in" /><strong>42 Thema</strong>
 <strong>Hoe leren we?</strong></p>
@@ -4741,7 +4796,7 @@ hoe realistisch het is om dit na te streven:</p>
 </table>
 </div>
 <p>Bovenkant formulier</p>
-<p><strong>43 Thema Communicatie en Gespreksvoering</strong></p>
+<p id="hfst-43"><strong>43 Thema Communicatie en Gespreksvoering</strong></p>
 <p>Dit geldt voor een individueel gesprek en voor een gesprek met meer
 personen, bijvoorbeeld op basis van de teamscores!</p>
 <p>In dat laatste geval helpt het als je het teamboek erbij neemt en de
@@ -5118,7 +5173,7 @@ klopt, communiceer je vaak effectiever.</p>
 <p><strong>Leestips:</strong></p>
 <p>Socrates op sneakers van Elke Wiss</p>
 <p>De kunst van het vragen van Percy Ross</p>
-<p><strong>44 Thema Onderhandelen:</strong></p>
+<p id="hfst-44"><strong>44 Thema Onderhandelen:</strong></p>
 <p>Er zijn diverse stijlen die onderhandelaars hanteren. Kijk maar eend
 hoe Mark Rutte als NAVO baas optreedt richting bijvoorbeeld het Witte
 Huis.</p>
@@ -5229,7 +5284,7 @@ style="width:6.30069in;height:3.74028in" /></p>
 <p>Het boek verscheen voor het eerst in 1981 en wordt wereldwijd
 beschouwd als een van de invloedrijkste boeken over onderhandelen. De
 auteurs waren verbonden aan het Harvard Negotiation Project.</p>
-<p><strong>45 Thema Samenwerken</strong></p>
+<p id="hfst-45"><strong>45 Thema Samenwerken</strong></p>
 <p>Mensen kunnen niet zonder samenwerken. Al in de oudheid gingen we
 samen op jacht, verzamelden we, ruilden we voedsel en voorwerpen met
 elkaar, vestigden we ons in kleine nederzettingen, verdedigden we ons
@@ -5678,7 +5733,7 @@ je waargenomen?</strong></p>
 <p>……………………………………………………………………………………………….......</p>
 <p><strong>Overige:</strong></p>
 <p>……………………………………………………………………………………………….......</p>
-<p><strong>46 Thema Feedback geven</strong></p>
+<p id="hfst-46"><strong>46 Thema Feedback geven</strong></p>
 <p>Op wat voor manier je ook reageert, jouw reactie geeft steeds
 informatie over hóe iemands boodschap op jou is overgekomen.</p>
 <p>Deze informatie over hoe een boodschap wordt ontvangen en
@@ -5928,7 +5983,7 @@ voor twee! Uit ervaring weet ik dat het belangrijk is deze gespreksvorm
 te oefenen! Hoe vaker je dit hebt gedaan des temeer kans op slagen het
 geeft. Oefen bijvoorbeeld eens met een persoon die je vertrouwt en die
 jou graag helpt!</p>
-<p><strong>47 Thema Leidinggeven en coachen (incl. de managers- en
+<p id="hfst-47"><strong>47 Thema Leidinggeven en coachen (incl. de managers- en
 ‘baas’ rol)</strong></p>
 <p>Ingvar Kamprad van IKEA zei eens: ‘De meeste leiders hebben hun
 bureau te ver af staan van de realiteit. De hele wereld is al gevuld met
@@ -6377,7 +6432,7 @@ voorwaarde en afspraak over vertrouwelijkheid.</p>
 <p>Als het in het belang van de organisatie en/of een persoon is kan ik
 wel een rol spelen onder de uitdrukkelijke voorwaarde dat iemand dat
 zelf aangeeft.</p>
-<p><strong>48 Thema Omgaan met tijd</strong></p>
+<p id="hfst-48"><strong>48 Thema Omgaan met tijd</strong></p>
 <h2
 id="what-is-important-is-seldom-urgent-and-what-is-urgent-is-seldom-important">“What
 is important is seldom urgent and what is urgent is seldom important”
@@ -6535,7 +6590,7 @@ geeft!</p>
 ‘dwingt’ me rustiger te schrijven.</p>
 <p>Leestip: Prioriteiten. Effectieve keuzes in leven en werk. Stephen R.
 Covey</p>
-<p><strong>49 Thema Omgaan met veranderingen</strong></p>
+<p id="hfst-49"><strong>49 Thema Omgaan met veranderingen</strong></p>
 <p>”Verandering is de enige constante in het leven” Heraclitus, een
 Griekse filosoof die leefde van 540-480 v.Chr., ook bekend van “Panta
 Rhei (alles stroomt), niets blijft hetzelfde. Alles verandert
@@ -6713,7 +6768,7 @@ H. Schmidt.</p>
     marks.forEach(m => m.className = "search-hit");
     if (current >= 0 && current < marks.length) {
       marks[current].className = "search-hit search-current";
-      marks[current].scrollIntoView({ behavior: "smooth", block: "center" });
+      marks[current].scrollIntoView({ behavior: "instant", block: "center" });
     }
     updateCount();
   }
