@@ -788,17 +788,25 @@ function renderResults() {
   rows.forEach(row => {
     count++;
     const div = document.createElement("div"); div.className = "result";
-    let tableHtml = "<table><tr>";
-    codes.forEach(c => { tableHtml += `<td class="hdr">${oriNames[c].replace(/^C\d /,'')}</td>`; });
-    tableHtml += "</tr><tr>";
-    codes.forEach(c => {
-      const cls = (stijl === c) ? "active" : "";
-      tableHtml += `<td class="${cls}">${escapeHtml(row[c] || "")}</td>`;
-    });
-    tableHtml += "</tr></table>";
+    const waarden = codes.map(c => row[c] || "");
+    const isUniverseel = waarden[0] !== "" && waarden.every(v => v === waarden[0]);
+    let bodyHtml;
+    if (isUniverseel) {
+      bodyHtml = `<div class="result-table-scroll"><p style="margin:0;padding:10px 4px;line-height:1.5;">${escapeHtml(waarden[0])}</p></div>`;
+    } else {
+      let tableHtml = "<table><tr>";
+      codes.forEach(c => { tableHtml += `<td class="hdr">${oriNames[c].replace(/^C\d /,'')}</td>`; });
+      tableHtml += "</tr><tr>";
+      codes.forEach(c => {
+        const cls = (stijl === c) ? "active" : "";
+        tableHtml += `<td class="${cls}">${escapeHtml(row[c] || "")}</td>`;
+      });
+      tableHtml += "</tr></table>";
+      bodyHtml = `<div class="result-table-scroll">${tableHtml}</div>`;
+    }
     div.innerHTML = `<span class="theme-badge" style="background:${col.bg};color:${col.fg};">${escapeHtml(themaOnly)}</span>
       <div class="label">${escapeHtml(row.label)}</div>
-      <div class="result-table-scroll">${tableHtml}</div>`;
+      ${bodyHtml}`;
     resultsEl.appendChild(div);
   });
 
