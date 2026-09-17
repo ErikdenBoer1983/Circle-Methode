@@ -163,19 +163,57 @@ themeLevels.forEach(l => l.themes.forEach(t => { themeLevelOf[t] = l.name; }));
   }
 })();
 
-// Achterkant van het Feedback-kaartje: 1 algemene aanpak die voor alle stijlen geldt
-// (stond als losse afbeelding vlak vóór de tabel, bron: EMF-schema, handmatig overgetypt)
+// Themakaartje "Feedback op Gedrag geven" heeft 2 kanten (bevestigd in de 15-sept
+// methode-tekst, hoofdstuk 46: "Nu volgt het Themakaartje Feedback geven van de
+// methode! Eerst maar eens de algemene manier..." gevolgd door de 2 kaartafbeeldingen):
+// kant 1 = de algemene aanpak (geldt voor iedereen), kant 2 = de Mogelijke Sterkten/
+// Valkuilen/Leerpunten/Afkeuren per stijl. Beide kanten dus tonen, niet vervangen.
 (function () {
   const algemeneFeedbackAanpak = "Feedback geven op gedrag: neem iemand apart! In een \"IK-boodschap\" (wat jij ziet, hoort, ervaart) - beschrijf jouw eigen gevoel erbij - beschrijf wat het effect van zijn/haar gedrag op jou is. Bijvoorbeeld: \"De manier waarop je dit aan mij vraagt vind ik niet prettig, ik word daar onzeker van. Vandaar dat ik je ga ontlopen.\" (gevolgd door stilte: laat de ander reageren). Geef feedback op: het moment zelf - het gedrag, niet op de persoon - een niet veroordelende manier. Geef géén advies. Laat de ander de ruimte!";
-  const row = { label: "Algemene aanpak (geldt voor alle stijlen)" };
-  ["c1","c2","c3","c4","c5","c6"].forEach(c => { row[c] = algemeneFeedbackAanpak; });
-  // Ruud: op het kaartje "Feedback op Gedrag geven" alleen de algemene aanpak tonen,
-  // niet de 6 stijlen apart (de eerder geextraheerde SVLA-rijen kwamen niet overeen
-  // met het geplastificeerde kaartje) - dus de oude inhoud vervangen, niet aanvullen.
+  const algemeneRow = { label: "Algemene aanpak (geldt voor alle stijlen)" };
+  ["c1","c2","c3","c4","c5","c6"].forEach(c => { algemeneRow[c] = algemeneFeedbackAanpak; });
+
+  const sterktenRow = {
+    label: "Mogelijke sterkten",
+    c1: "met respect voor de ander rustig met zorg",
+    c2: "direct duidelijk uitgesproken",
+    c3: "rustig duidelijk onderbouwd zonder emotie",
+    c4: "ruimte gevend niet bedreigend bedachtzaam",
+    c5: "omschrijft eigen gevoel geruststellend er voor de ander zijn",
+    c6: "gevoel voor het juiste moment/sfeer zich in de ander verplaatsen niet bedreigend"
+  };
+  const valkuilenRow = {
+    label: "Mogelijke valkuilen",
+    c1: "veroordelend té afwachtend advies geven",
+    c2: "té direct/aanvallend géén ruimte geven advies geven",
+    c3: "eigen gevoel beschrijven is lastig wil naar inhoud i.p.v. gedrag zonder gevoel brengen",
+    c4: "je niet uitspreken té voorzichtig zijn de ander niet aankijken",
+    c5: "niet duidelijk stelt zich té kwetsbaar op verplaatst zich teveel in de ander",
+    c6: "past zich teveel aan de ander aan maakt het té luchtig bang voor de confrontatie"
+  };
+  const leerpuntenRow = {
+    label: "Mogelijke leerpunten",
+    c1: "niet veroordelend sneller doen niet \"op jouw hals halen\"",
+    c2: "in \"IK\"-vorm eigen gevoel omschrijven méér ruimte geven geen advies",
+    c3: "eigen gevoel uitspreken alleen gedrag! meer inlevend in de ander",
+    c4: "je sneller uitspreken duidelijker zijn meer naar buiten treden",
+    c5: "duidelijk/kort onderbouwen minder emotioneel meer vanuit eigen \"IK\"",
+    c6: "eigen moment kiezen meer vanuit eigen \"IK\" spreek je uit"
+  };
+  const afkeurenRow = {
+    label: "Mogelijke afkeuren",
+    c1: "respectloos té confronterend teleurgesteld als ontvanger afwijst",
+    c2: "als ontvanger: er niets mee doet geen reactie geeft \"feedback=soft\"",
+    c3: "teveel gevoel erin leggen té dichtbij zijn persoon \"open eind\"",
+    c4: "overrompelen ondoordacht drukte",
+    c5: "zonder gevoel té afstandelijk er niet zijn voor de ander",
+    c6: "géén oog voor moment/persoon té bot té bedreigend"
+  };
+
   if (themesData["Feedback geven"]) {
     delete themesData["Feedback geven"];
   }
-  themesData["Feedback op Gedrag geven"] = [row];
+  themesData["Feedback op Gedrag geven"] = [algemeneRow, sterktenRow, valkuilenRow, leerpuntenRow, afkeurenRow];
 })();
 
 // Aanvulling "Basis (algemeen)" - het grijze kaartje heeft een 2e kant met Mogelijke
